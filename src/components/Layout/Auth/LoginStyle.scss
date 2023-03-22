@@ -1,0 +1,82 @@
+.login-background {
+  height: 100vh;
+  background: rgb(34, 193, 195);
+  background: linear-gradient(135deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
+  .login-container {
+    width: 400px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    background: #fff;
+  }
+  .login-content {
+    padding: 15px;
+    .login-text {
+      text-align: center;
+      font-weight: 600;
+      font-size: 24px;
+      padding-top: 10px;
+    }
+    .login-input {
+      margin: 7px 0;
+      .login-control-pw {
+        position: relative;
+        div {
+          position: absolute;
+          top: 50%;
+          right: 10px;
+          transform: translateY(-50%);
+          cursor: pointer;
+        }
+      }
+    }
+    .login-btn {
+      width: 100%;
+      margin: 10px 0;
+      height: 44px;
+      border-radius: 15px;
+      outline: none;
+      border: none;
+      background: rgb(34, 193, 195);
+      background: linear-gradient(135deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .login-forgot-pw {
+      font-size: 12px;
+    }
+    .login-social {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+      gap: 10px;
+      i.google {
+        font-size: 30px;
+        background: red;
+        border-radius: 50%;
+        height: 50px;
+        width: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        cursor: pointer;
+      }
+      i.facebook {
+        font-size: 30px;
+        background: blue;
+        border-radius: 50%;
+        height: 50px;
+        width: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        cursor: pointer;
+      }
+    }
+  }
+}
