@@ -40,8 +40,10 @@ const authSlice = createSlice({
       state.message = payload.message;
     },
 
-    loginError(state, action: PayloadAction<string>) {
+    loginError(state, action: PayloadAction<ListResponse<UserData>>) {
       state.isLoading = false;
+      state.code = action.payload.code;
+      state.message = action.payload.message;
     },
 
     logout(state) {

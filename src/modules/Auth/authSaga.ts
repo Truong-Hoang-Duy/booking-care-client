@@ -4,6 +4,7 @@ import { PayloadAction } from '@reduxjs/toolkit';
 import { call, fork, put, take } from 'redux-saga/effects';
 import { authActions, LoginPayload } from './authSlice';
 import request from 'axios';
+import { history } from '@/App';
 
 function fetchUser(payload: { email: string; password: string }) {
   const { email, password } = payload;

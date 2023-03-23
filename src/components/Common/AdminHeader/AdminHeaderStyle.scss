@@ -1,0 +1,10 @@
+.navbar-admin {
+  & .navbar-brand {
+    cursor: default;
+    pointer-events: none;
+  }
+  & .logout-social {
+    font-size: 20px;
+    cursor: pointer;
+  }
+}

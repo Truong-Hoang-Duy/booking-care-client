@@ -1,7 +1,7 @@
-import * as React from 'react';
+import { AdminHeader } from '@/components/Common';
 
 export interface AdminProps {}
 
 export function Admin(props: AdminProps) {
-  return <div>Admin</div>;
+  return <AdminHeader />;
 }

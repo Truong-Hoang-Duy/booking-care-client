@@ -1,84 +1,29 @@
-import request from 'axios';
-import { useReducer, useState } from 'react';
-import { userApi } from '@/services';
-import { ActionType, ApiActionKind, StateType } from '@/api/statusCodes';
-import './LoginStyle.scss';
-import { useAppDispatch } from '@/shared/hooks/useGetData';
 import { authActions } from '@/modules/Auth/authSlice';
-
-function fetchReducer<T extends Record<string, unknown>>(
-  state: StateType<T>,
-  action: ActionType<T>
-) {
-  const { type, payload } = action;
-  switch (type) {
-    case ApiActionKind.REQUEST:
-      return { ...state, isLoading: payload.isLoading };
-
-    case ApiActionKind.SUCCESS:
-    case ApiActionKind.ERROR:
-      return {
-        ...state,
-        code: payload.code,
-        data: payload.data,
-        isLoading: payload.isLoading,
-        message: payload.message,
-      };
-
-    default:
-      return state;
-  }
-}
+import { useAppDispatch, useAppSelector } from '@/shared/hooks/useGetData';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './LoginStyle.scss';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isShowPw, setIsShowPw] = useState(false);
 
-  // const [state, dispatch] = useReducer(fetchReducer, {
-  //   data: [],
-  //   isLoading: false,
-  //   message: '',
-  // });
-  // const { data, isLoading, message, code } = state;
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
+  const response = useAppSelector((state) => state.auth);
+  const { code, message, isLoading } = response;
 
   const handleLogin = async () => {
-    // dispatch({
-    //   type: ApiActionKind.REQUEST,
-    //   payload: { data: [], isLoading: true, message: 'request' },
-    // });
-    // try {
-    //   const response = await userApi.handleLogin(email, password);
-    //   dispatch({
-    //     type: ApiActionKind.SUCCESS,
-    //     payload: {
-    //       code: response.code,
-    //       data: response.data as any,
-    //       isLoading: false,
-    //       message: response.message,
-    //     },
-    //   });
-    // } catch (error) {
-    //   if (request.isAxiosError(error) && error.response) {
-    //     const { data } = error.response;
-    //     dispatch({
-    //       type: ApiActionKind.ERROR,
-    //       payload: {
-    //         code: data.code,
-    //         data: data.data,
-    //         isLoading: false,
-    //         message: data.message,
-    //       },
-    //     });
-    //   }
-    // }
-
     dispatch(authActions.loginRequest({ email, password }));
-
-    console.log('login');
   };
+
+  useEffect(() => {
+    if (code === 200) {
+      navigate('/admin');
+    }
+  }, [code]);
 
   return (
     <div className="login-background">
@@ -114,11 +59,11 @@ const Login = () => {
             </div>
           </div>
 
-          {/* {code === 500 && <span className="text-danger">{message}</span>} */}
+          {code === 500 && <span className="text-danger">{message}</span>}
 
           <div className="col-12">
             <button className="login-btn" onClick={handleLogin}>
-              {false ? (
+              {isLoading ? (
                 <div className="d-flex justify-content-center">
                   <div className="spinner-border text-light" role="status">
                     <span className="sr-only">Loading...</span>

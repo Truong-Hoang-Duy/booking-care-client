@@ -1,4 +1,5 @@
-import { Navigate, redirect, Route, RouteProps } from 'react-router-dom';
+import { useAppSelector } from '@/shared/hooks/useGetData';
+import { Navigate } from 'react-router-dom';
 
 export function PrivateRoute({ children }: { children: JSX.Element }) {
   // Check if user is logged in
