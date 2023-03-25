@@ -1,7 +1,7 @@
 import { createBrowserHistory } from 'history';
 import { useLayoutEffect, useState } from 'react';
 import { Router } from 'react-router-dom';
-import './App.css';
+import './App.scss';
 import Navigation from './Navigation';
 
 export const history = createBrowserHistory();

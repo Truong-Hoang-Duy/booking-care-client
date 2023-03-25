@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { PrivateRoute } from './components/Common';
+import { UserManage } from './components/Layout/Admin';
 import AdminPage from './pages/AdminPage';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
@@ -17,7 +18,9 @@ const Navigation = () => {
               <AdminPage />
             </PrivateRoute>
           }
-        ></Route>
+        >
+          <Route path="user-manage" element={<UserManage />}></Route>
+        </Route>
       </Route>
 
       <Route path="*" element={<NotFoundPage />}></Route>

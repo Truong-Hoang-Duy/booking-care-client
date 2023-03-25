@@ -1,10 +1,11 @@
 import { ListResponse } from '@/api/statusCodes';
-import { userApi, UserData } from '@/services';
+import { userApi, LoginData } from '@/services';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, fork, put, take } from 'redux-saga/effects';
 import { authActions, LoginPayload } from './authSlice';
 import request from 'axios';
 import { history } from '@/App';
+import { useAppSelector } from '@/utils/useGetData';
 
 function fetchUser(payload: { email: string; password: string }) {
   const { email, password } = payload;
@@ -13,10 +14,10 @@ function fetchUser(payload: { email: string; password: string }) {
 
 function* handleLogin(payload: LoginPayload) {
   try {
-    const response: ListResponse<UserData> = yield call(fetchUser, payload);
-    console.log(response);
+    const response: ListResponse<LoginData> = yield call(fetchUser, payload);
     yield put(authActions.loginSuccess(response));
-    localStorage.setItem('access_token', 'token');
+    // localStorage.setItem('access_token', 'token');
+    history.push('/admin/user-manage');
   } catch (error) {
     if (request.isAxiosError(error) && error.response) {
       console.log(error.response.data);
@@ -25,8 +26,9 @@ function* handleLogin(payload: LoginPayload) {
 }
 
 function* handleLogout() {
-  localStorage.removeItem('access_token');
+  // localStorage.removeItem('access_token');
   // redirect to login page
+  history.push('/login');
 }
 
 function* watchLoginFlow() {

@@ -1,16 +1,14 @@
 import { history } from '@/App';
 import { authActions } from '@/modules/Auth/authSlice';
-import { useAppDispatch } from '@/shared/hooks/useGetData';
-import { useNavigate } from 'react-router-dom';
+import { useAppDispatch } from '@/utils/useGetData';
 import './AdminHeaderStyle.scss';
 
 export const AdminHeader = () => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const handle = () => {
     dispatch(authActions.logout());
-    history.push('/');
+    // history.push('/');
   };
   return (
     <nav className="navbar navbar-admin navbar-expand-lg navbar-primary bg-primary text-white ">

@@ -1,7 +1,6 @@
 import { authActions } from '@/modules/Auth/authSlice';
-import { useAppDispatch, useAppSelector } from '@/shared/hooks/useGetData';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '@/utils/useGetData';
+import { useState } from 'react';
 import './LoginStyle.scss';
 
 const Login = () => {
@@ -9,21 +8,13 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [isShowPw, setIsShowPw] = useState(false);
 
-  const navigate = useNavigate();
-
   const dispatch = useAppDispatch();
   const response = useAppSelector((state) => state.auth);
   const { code, message, isLoading } = response;
 
-  const handleLogin = async () => {
+  const handleLogin = () => {
     dispatch(authActions.loginRequest({ email, password }));
   };
-
-  useEffect(() => {
-    if (code === 200) {
-      navigate('/admin');
-    }
-  }, [code]);
 
   return (
     <div className="login-background">

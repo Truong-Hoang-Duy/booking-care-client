@@ -1,5 +1,5 @@
 import { ListResponse } from '@/api/statusCodes';
-import { UserData } from '@/services';
+import { LoginData } from '@/services';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface LoginPayload {
@@ -10,7 +10,7 @@ export interface LoginPayload {
 export interface AuthState {
   isLoggedIn: boolean;
   isLoading?: boolean;
-  data?: UserData[];
+  data?: LoginData[];
   message: string;
   code?: number;
 }
@@ -31,7 +31,7 @@ const authSlice = createSlice({
       state.isLoading = true;
     },
 
-    loginSuccess(state, action: PayloadAction<ListResponse<UserData>>) {
+    loginSuccess(state, action: PayloadAction<ListResponse<LoginData>>) {
       const { payload } = action;
       state.isLoggedIn = true;
       state.isLoading = false;
@@ -40,7 +40,7 @@ const authSlice = createSlice({
       state.message = payload.message;
     },
 
-    loginError(state, action: PayloadAction<ListResponse<UserData>>) {
+    loginError(state, action: PayloadAction<ListResponse<LoginData>>) {
       state.isLoading = false;
       state.code = action.payload.code;
       state.message = action.payload.message;

@@ -1,11 +1,11 @@
-import axios, { AxiosResponse, InternalAxiosRequestConfig } from "axios";
-import queryString from "query-string";
-import { BASE_URL } from "../shared/configs/config";
+import axios, { AxiosResponse, InternalAxiosRequestConfig } from 'axios';
+import queryString from 'query-string';
+import { BASE_URL } from '../shared/configs/config';
 
 const instance = axios.create({
   baseURL: BASE_URL,
   headers: {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json',
   },
   paramsSerializer: {
     encode: (params) => queryString.stringify(params),
