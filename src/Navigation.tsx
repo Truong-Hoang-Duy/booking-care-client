@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Outlet, Route, Routes } from 'react-router-dom';
 import { PrivateRoute } from './components/Common';
 import { UserManage } from './components/Layout/Admin';
 import AdminPage from './pages/AdminPage';
@@ -9,7 +9,8 @@ import NotFoundPage from './pages/NotFoundPage';
 const Navigation = () => {
   return (
     <Routes>
-      <Route path="/" element={<HomePage />}>
+      <Route path="/" element={<Outlet />}>
+        <Route index={true} element={<HomePage />}></Route>
         <Route path="login" element={<LoginPage />}></Route>
         <Route
           path="admin"

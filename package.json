@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@formatjs/intl-pluralrules": "^5.1.10",
+    "@formatjs/intl-relativetimeformat": "^11.1.10",
     "@fortawesome/fontawesome-free": "^6.3.0",
     "@reduxjs/toolkit": "^1.9.3",
     "@types/lodash": "^4.14.191",
@@ -20,17 +22,21 @@
     "query-string": "^8.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-intl": "^6.3.2",
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.9.0",
+    "react-slick": "^0.29.0",
     "reactstrap": "^9.1.6",
     "redux-saga": "^1.2.3",
-    "sass": "^1.59.3"
+    "sass": "^1.59.3",
+    "slick-carousel": "^1.8.1"
   },
   "devDependencies": {
     "@types/history": "^5.0.0",
     "@types/node": "^18.15.9",
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
+    "@types/react-slick": "^0.23.10",
     "@vitejs/plugin-react": "^3.1.0",
     "typescript": "^4.9.3",
     "vite": "^4.2.0"

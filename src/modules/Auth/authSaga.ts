@@ -28,7 +28,7 @@ function* handleLogin(payload: LoginPayload) {
 function* handleLogout() {
   // localStorage.removeItem('access_token');
   // redirect to login page
-  history.push('/login');
+  history.push('/');
 }
 
 function* watchLoginFlow() {

@@ -1,10 +1,10 @@
-import { Outlet } from 'react-router-dom';
+import { Home } from '@/components/Layout/Home';
 
 const HomePage = () => {
   return (
-    <div>
-      <Outlet />
-    </div>
+    <>
+      <Home />
+    </>
   );
 };
 
