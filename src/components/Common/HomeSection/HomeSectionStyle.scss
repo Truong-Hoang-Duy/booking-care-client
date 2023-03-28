@@ -1,8 +1,7 @@
-.section-specialty {
-  //   height: 330px;
+.home-section {
   padding: 30px 0;
-  background: #f5f5f5;
-  .specialty-container {
+  border-bottom: 3px solid #efeef5;
+  .section-container {
     height: inherit;
     display: flex;
     flex-direction: column;
@@ -31,19 +30,22 @@
         }
       }
     }
-    .body {
-    }
 
-    .specialty-img-link {
-      text-decoration: none;
-      color: inherit;
-      .specialty-img {
-        height: 150px;
-        width: 290px;
-        background-position: center center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-color: #eee;
+    .body {
+      .section-img-link {
+        text-decoration: none;
+        color: inherit;
+        width: fit-content !important;
+        .section-img {
+          height: 150px;
+          width: 290px;
+          background-position: center center;
+          background-repeat: no-repeat;
+          background-color: #fff;
+        }
+        &:hover {
+          color: #45c3d2;
+        }
       }
     }
   }

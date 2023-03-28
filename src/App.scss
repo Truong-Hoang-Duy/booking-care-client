@@ -6,9 +6,9 @@
   width: 44px !important;
   height: 48px !important;
   background: #fff !important;
+
   &::before {
     font-family: 'Font Awesome 5 Free' !important;
-    // content: '\f060' !important;
     color: red !important;
   }
   &:hover {

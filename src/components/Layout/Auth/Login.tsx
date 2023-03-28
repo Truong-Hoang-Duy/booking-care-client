@@ -1,6 +1,7 @@
 import { authActions } from '@/modules/Auth/authSlice';
 import { useAppDispatch, useAppSelector } from '@/utils/useGetData';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { redirect, useNavigate } from 'react-router-dom';
 import './LoginStyle.scss';
 
 const Login = () => {
@@ -15,6 +16,12 @@ const Login = () => {
   const handleLogin = () => {
     dispatch(authActions.loginRequest({ email, password }));
   };
+
+  const navigate = useNavigate();
+  useEffect(() => {
+    const isLoggedIn = Boolean(localStorage.getItem('access_token'));
+    if (isLoggedIn) navigate('/admin/user-manage');
+  }, []);
 
   return (
     <div className="login-background">

@@ -16,7 +16,7 @@ function* handleLogin(payload: LoginPayload) {
   try {
     const response: ListResponse<LoginData> = yield call(fetchUser, payload);
     yield put(authActions.loginSuccess(response));
-    // localStorage.setItem('access_token', 'token');
+    localStorage.setItem('access_token', 'token');
     history.push('/admin/user-manage');
   } catch (error) {
     if (request.isAxiosError(error) && error.response) {
@@ -26,7 +26,7 @@ function* handleLogin(payload: LoginPayload) {
 }
 
 function* handleLogout() {
-  // localStorage.removeItem('access_token');
+  localStorage.removeItem('access_token');
   // redirect to login page
   history.push('/');
 }

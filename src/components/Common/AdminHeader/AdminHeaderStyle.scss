@@ -1,10 +1,35 @@
 .navbar-admin {
+  background: #0071ba;
   & .navbar-brand {
-    cursor: default;
-    pointer-events: none;
+    font-size: 22px;
+    font-weight: 500;
+  }
+  & .languages {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    .language-en {
+      cursor: pointer;
+      margin: 0 15px 0 10px;
+      &.active {
+        opacity: 1;
+        color: orange;
+      }
+    }
+    .language-vi {
+      cursor: pointer;
+      &.active {
+        opacity: 1;
+        color: orange;
+      }
+    }
   }
   & .logout-social {
     font-size: 20px;
     cursor: pointer;
+    padding: 5px 10px;
+    &:hover {
+      background-color: darken(#0071ba, 5);
+    }
   }
 }
