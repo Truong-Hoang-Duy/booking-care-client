@@ -36,9 +36,11 @@
         text-decoration: none;
         color: inherit;
         width: fit-content !important;
+        display: inline !important;
         .section-img {
           height: 150px;
-          width: 290px;
+          // max-width: 290px;
+          width: 100%;
           background-position: center center;
           background-repeat: no-repeat;
           background-color: #fff;

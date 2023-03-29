@@ -1,3 +1,4 @@
+import { FormattedMessage } from 'react-intl';
 import './FooterStyle.scss';
 
 const Footer = () => {
@@ -5,7 +6,9 @@ const Footer = () => {
     <footer className="text-center text-lg-start bg-light">
       <section className="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
         <div className="me-5 d-none d-lg-block">
-          <span>Get connected with us on social networks:</span>
+          <span>
+            <FormattedMessage id="home.footer.connect" />
+          </span>
         </div>
 
         <div>
@@ -44,37 +47,43 @@ const Footer = () => {
 
             <div className="col-md-3 mb-4 footer-center d-flex flex-column gap-1">
               <a href="#!" className="text-black text-decoration-none py-2">
-                Liên hệ hợp tác
+                <FormattedMessage id="home.footer.contact" />
               </a>
               <a href="#!" className="text-black text-decoration-none py-2">
-                Gói chuyển đổi số doanh nghiệp
+                <FormattedMessage id="home.footer.enterprise" />
               </a>
               <a href="#!" className="text-black text-decoration-none py-2">
-                Câu hỏi thường gặp
+                <FormattedMessage id="home.footer.question" />
               </a>
               <a href="#!" className="text-black text-decoration-none py-2">
-                Điều khoản sử dụng
+                <FormattedMessage id="home.footer.terms" />
               </a>
               <a href="#!" className="text-black text-decoration-none py-2">
-                Chính sách Bảo mật
+                <FormattedMessage id="home.footer.policy" />
               </a>
             </div>
 
             <div className="col-md-3 mb-md-0 mb-4 footer-right">
               <div>
-                <p className="title mb-1 fw-bold">Trụ sở tại Hà Nội</p>
+                <p className="title mb-1 fw-bold">
+                  <FormattedMessage id="home.footer.address.HN" />
+                </p>
                 <p className="child">
                   Tầng 6, Tòa nhà D'Office, tổ 28, P. Dịch Vọng, Q. Cầu Giấy, Tp. Hà Nội
                 </p>
               </div>
 
               <div>
-                <p className="title mb-1 fw-bold">Văn phòng tại TP Hồ Chí Minh</p>
+                <p className="title mb-1 fw-bold">
+                  <FormattedMessage id="home.footer.address.HCM" />
+                </p>
                 <p className="child">Số 01, Hồ Bá Kiện, Phường 15, Quận 10</p>
               </div>
 
               <div>
-                <p className="title mb-1 fw-bold">Hỗ trợ khách hàng</p>
+                <p className="title mb-1 fw-bold">
+                  <FormattedMessage id="home.footer.support" />
+                </p>
                 <p className="child">support@bookingcare.vn (7h - 20h)</p>
               </div>
             </div>

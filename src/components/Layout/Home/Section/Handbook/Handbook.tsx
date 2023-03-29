@@ -4,8 +4,8 @@ import 'slick-carousel/slick/slick.css';
 import './HandbookStyle.scss';
 
 interface HandbookProps {
-  heading: string;
-  buttonText: string;
+  heading: React.ReactNode;
+  buttonText: React.ReactNode;
   data: {
     id: string;
     img: string;

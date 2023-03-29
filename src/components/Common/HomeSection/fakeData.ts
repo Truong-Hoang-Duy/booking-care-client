@@ -36,12 +36,12 @@ export const SpecialtyData = [
 export const MedicalData = [
   {
     id: uniqueId(),
-    img: 'src/assets/hospital/bshung.jpeg',
+    img: 'src/assets/hospital/bv-cho-ray.jpeg',
     title: 'Cơ xương khớp',
   },
   {
     id: uniqueId(),
-    img: 'src/assets/hospital/bshung.jpeg',
+    img: 'src/assets/hospital/bv-cho-ray.jpeg',
     title: 'Cơ xương khớp',
   },
   {
@@ -70,25 +70,25 @@ export const DoctorData = [
   },
   {
     id: uniqueId(),
-    img: 'src/assets/hospital/bshung.jpeg',
+    img: 'src/assets/doctor/bshung.jpeg',
     name: 'Phó Giáo sư, Tiến sĩ, Bác sĩ cao cấp Nguyễn Duy Hưng',
     title: 'Cơ xương khớp',
   },
   {
     id: uniqueId(),
-    img: 'src/assets/hospital/bshung.jpeg',
+    img: 'src/assets/doctor/bshung.jpeg',
     name: 'Phó Giáo sư, Tiến sĩ, Bác sĩ cao cấp Nguyễn Duy Hưng',
     title: 'Cơ xương khớp',
   },
   {
     id: uniqueId(),
-    img: 'src/assets/hospital/bshung.jpeg',
+    img: 'src/assets/doctor/bshung.jpeg',
     name: 'Phó Giáo sư, Tiến sĩ, Bác sĩ cao cấp Nguyễn Duy Hưng',
     title: 'Cơ xương khớp',
   },
   {
     id: uniqueId(),
-    img: 'src/assets/hospital/bshung.jpeg',
+    img: 'src/assets/doctor/bshung.jpeg',
     name: 'Phó Giáo sư, Tiến sĩ, Bác sĩ cao cấp Nguyễn Duy Hưng',
     title: 'Cơ xương khớp',
   },

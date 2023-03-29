@@ -1,10 +1,13 @@
+import { FormattedMessage } from 'react-intl';
 import './AboutStyle.scss';
 
 const About = () => {
   return (
     <div className="section-about">
       <div className="header">
-        <span>Truyền thông nói về BookingCare</span>
+        <span>
+          <FormattedMessage id="home.section.media" />
+        </span>
       </div>
       <div className="section-about-container">
         <div className="section-about-left">

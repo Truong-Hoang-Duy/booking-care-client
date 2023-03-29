@@ -1,7 +1,7 @@
 import { authActions } from '@/modules/Auth/authSlice';
 import { useAppDispatch, useAppSelector } from '@/utils/useGetData';
 import { useEffect, useState } from 'react';
-import { redirect, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './LoginStyle.scss';
 
 const Login = () => {
@@ -18,6 +18,7 @@ const Login = () => {
   };
 
   const navigate = useNavigate();
+
   useEffect(() => {
     const isLoggedIn = Boolean(localStorage.getItem('access_token'));
     if (isLoggedIn) navigate('/admin/user-manage');

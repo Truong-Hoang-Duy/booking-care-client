@@ -1,8 +1,10 @@
+import { useAppSelector } from '@/utils/useGetData';
 import { FormattedMessage } from 'react-intl';
 import './BannerStyle.scss';
 import { options } from './constants';
 
 const Banner = () => {
+  const { language } = useAppSelector((state) => state.lang);
   return (
     <div className="home-banner">
       <div className="content-up">
@@ -15,7 +17,7 @@ const Banner = () => {
 
         <div className="search">
           <i className="fas fa-search"></i>
-          <input type="text" placeholder="Tìm bác sĩ" />
+          <input type="text" placeholder={language === 'vi' ? 'Tìm bác sĩ' : 'Find a doctor'} />
         </div>
       </div>
 

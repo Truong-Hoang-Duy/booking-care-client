@@ -4,8 +4,8 @@ import 'slick-carousel/slick/slick-theme.css';
 import './OutstangdingStyle.scss';
 
 interface OutstandingDoctorProps {
-  heading: string;
-  buttonText: string;
+  heading: React.ReactNode;
+  buttonText: React.ReactNode;
   data: {
     id: string;
     img: string;

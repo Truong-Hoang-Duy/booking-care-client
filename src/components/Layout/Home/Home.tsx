@@ -8,36 +8,42 @@ import {
   SpecialtyData,
 } from '@/components/Common/HomeSection/fakeData';
 import { useEffect } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { Banner } from './Banner';
 import { About } from './Section/About';
 import { Handbook } from './Section/Handbook';
 import { OutstandingDoctor } from './Section/Outstanding';
 
 const Home = () => {
-  useEffect(() => {
-    localStorage.setItem('language', 'vi');
-  });
   return (
     <>
       <HomeHeader />
       <Banner />
       <HomeSection
-        heading="Chuyên khoa phổ biến"
-        buttonText="Xem thêm"
+        heading={<FormattedMessage id="home.section.specialty" />}
+        buttonText={<FormattedMessage id="home.section.button" />}
         data={SpecialtyData}
         backgroundSize="cover"
       />
       <HomeSection
         backgroundColor="#f5f5f5"
-        heading="Chuyên khoa phổ biến"
-        buttonText="Xem thêm"
+        heading={<FormattedMessage id="home.section.outstanding" />}
+        buttonText={<FormattedMessage id="home.section.button" />}
         data={MedicalData}
         backgroundSize="contain"
       />
 
-      <OutstandingDoctor heading="Chuyên khoa phổ biến" buttonText="Xem thêm" data={DoctorData} />
+      <OutstandingDoctor
+        heading={<FormattedMessage id="home.section.doctor" />}
+        buttonText={<FormattedMessage id="home.section.button" />}
+        data={DoctorData}
+      />
 
-      <Handbook heading="Cẩm nang" buttonText="Tất cả bài viết" data={HandbookData} />
+      <Handbook
+        heading={<FormattedMessage id="home.section.handbook" />}
+        buttonText={<FormattedMessage id="home.section.button" />}
+        data={HandbookData}
+      />
 
       <About />
 

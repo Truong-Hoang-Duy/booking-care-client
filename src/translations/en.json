@@ -39,6 +39,29 @@
         "text1": "Dental",
         "text2": "examination"
       }
+    },
+
+    "section": {
+      "specialty": "Popular specialties",
+      "outstanding": "Outstanding medical facility",
+      "doctor": "Last week's featured doctor",
+      "handbook": "Handbook",
+      "media": "Media talk about BookingCare",
+      "button": "See more"
+    },
+
+    "footer": {
+      "connect": "Get connected with us on social networks:",
+      "contact": "Cooperation contact",
+      "enterprise": "Enterprise digital transformation package",
+      "question": "Frequently asked questions",
+      "terms": "Terms of use",
+      "policy": "Privacy Policy",
+      "address": {
+        "HN": "Headquarters in Hanoi",
+        "HCM": "Office in Ho Chi Minh City"
+      },
+      "support": "Customer support"
     }
   },
 

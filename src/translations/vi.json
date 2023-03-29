@@ -39,6 +39,29 @@
         "text1": "Khám",
         "text2": "nha khoa"
       }
+    },
+
+    "section": {
+      "specialty": "Chuyên khoa phổ biến",
+      "outstanding": "Cơ sở y tế nổi bật",
+      "doctor": "Bác sĩ nổi bật tuần qua",
+      "handbook": "Cẩm nang",
+      "media": "Truyền thông nói về BookingCare",
+      "button": "Xem thêm"
+    },
+
+    "footer": {
+      "connect": "Kết nối với chúng tôi trên các mạng xã hội:",
+      "contact": "Liên hệ hợp tác",
+      "enterprise": "Gói chuyển đổi số doanh nghiệp",
+      "question": "Câu hỏi thường gặp",
+      "terms": "Điều khoản sử dụng",
+      "policy": "Chính sách Bảo mật",
+      "address": {
+        "HN": "Trụ sở tại Hà Nội",
+        "HCM": "Văn phòng tại TP Hồ Chí Minh"
+      },
+      "support": "Hỗ trợ khách hàng"
     }
   },
 

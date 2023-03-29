@@ -5,7 +5,6 @@ import { call, fork, put, take } from 'redux-saga/effects';
 import { authActions, LoginPayload } from './authSlice';
 import request from 'axios';
 import { history } from '@/App';
-import { useAppSelector } from '@/utils/useGetData';
 
 function fetchUser(payload: { email: string; password: string }) {
   const { email, password } = payload;
@@ -20,7 +19,7 @@ function* handleLogin(payload: LoginPayload) {
     history.push('/admin/user-manage');
   } catch (error) {
     if (request.isAxiosError(error) && error.response) {
-      console.log(error.response.data);
+      yield put(authActions.loginError(error.response.data));
     }
   }
 }
@@ -28,7 +27,7 @@ function* handleLogin(payload: LoginPayload) {
 function* handleLogout() {
   localStorage.removeItem('access_token');
   // redirect to login page
-  history.push('/');
+  history.push('/login');
 }
 
 function* watchLoginFlow() {
@@ -39,7 +38,7 @@ function* watchLoginFlow() {
       yield fork(handleLogin, action.payload);
     }
 
-    yield take(authActions.logout.type);
+    yield take([authActions.logout.type, authActions.loginError.type]);
     yield call(handleLogout);
   }
 }
