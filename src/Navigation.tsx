@@ -13,7 +13,7 @@ const Navigation = () => {
         <Route index={true} element={<HomePage />}></Route>
         <Route path="login" element={<LoginPage />}></Route>
         <Route
-          path="admin"
+          path="system"
           element={
             <PrivateRoute>
               <AdminPage />

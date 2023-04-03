@@ -21,7 +21,7 @@ const Login = () => {
 
   useEffect(() => {
     const isLoggedIn = Boolean(localStorage.getItem('access_token'));
-    if (isLoggedIn) navigate('/admin/user-manage');
+    if (isLoggedIn) navigate('/system/user-manage');
   }, []);
 
   return (

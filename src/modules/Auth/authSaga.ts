@@ -1,4 +1,4 @@
-import { ListResponse } from '@/api/statusCodes';
+import { ListOneResponse, ListResponse } from '@/api/statusCodes';
 import { userApi, LoginData } from '@/services';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, fork, put, take } from 'redux-saga/effects';
@@ -13,10 +13,10 @@ function fetchUser(payload: { email: string; password: string }) {
 
 function* handleLogin(payload: LoginPayload) {
   try {
-    const response: ListResponse<LoginData> = yield call(fetchUser, payload);
+    const response: ListOneResponse<LoginData> = yield call(fetchUser, payload);
     yield put(authActions.loginSuccess(response));
     localStorage.setItem('access_token', 'token');
-    history.push('/admin/user-manage');
+    history.push('/system/user-manage');
   } catch (error) {
     if (request.isAxiosError(error) && error.response) {
       yield put(authActions.loginError(error.response.data));

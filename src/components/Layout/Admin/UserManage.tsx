@@ -1,9 +1,12 @@
 import { CreateData, EditUser, userApi, UserData } from '@/services';
+import { emitter } from '@/utils';
+import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 import './AdminStyle.scss';
 import ModalUser from './ModalUser';
-import axios from 'axios';
-import { emitter } from '@/utils';
+import { FormattedMessage } from 'react-intl';
+import { Buffer } from 'buffer';
 
 export const UserManage = () => {
   const [user, setUser] = useState<UserData[]>([]);
@@ -32,14 +35,14 @@ export const UserManage = () => {
     try {
       const response = await userApi.createUser(data);
       if (response && response.code === 200) {
-        console.log(response.message);
         await fetchDataUser();
         toggle();
+        toast.success(response.message);
         emitter.emit('EVENT_CLEAR_MODAL_DATA', { code: response.code });
       }
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
-        console.log(error.response.data.message);
+        toast.error(error.response.data.message);
       }
     }
   };
@@ -49,16 +52,26 @@ export const UserManage = () => {
       const res = await userApi.deleteUser(id);
       if (res && res.code === 200) {
         await fetchDataUser();
+        toast.success(res.message);
       }
     } catch (error) {
-      console.log(error);
+      if (axios.isAxiosError(error) && error.response) {
+        toast.error(error.response.data.message);
+      }
     }
   };
 
   const handleGetOneUser = async (id: number) => {
     try {
       const { data } = await userApi.getOneUser(id);
-      setOneUser(data);
+      let imageBase64 = '';
+      if (data.image) {
+        imageBase64 = new Buffer(data.image, 'base64').toString('binary');
+      }
+      setOneUser({
+        ...data,
+        image: imageBase64,
+      });
       toggle();
     } catch (error) {
       console.log(error);
@@ -71,15 +84,20 @@ export const UserManage = () => {
       if (res && res.code === 200) {
         await fetchDataUser();
         toggle();
+        toast.success(res.message);
       }
     } catch (error) {
-      console.log(error);
+      if (axios.isAxiosError(error) && error.response) {
+        toast.error(error.response.data.message);
+      }
     }
   };
 
   return (
     <div className="container">
-      <h1 className="title text-center mt-3 text-secondary fw-bold">Manage users</h1>
+      <h1 className="title text-center mt-3 text-secondary fw-bold">
+        <FormattedMessage id="menu.admin.title" />
+      </h1>
       <div className="my-3 text-end">
         <button className="btn btn-primary" onClick={handleToggleAdd}>
           <i className="fas fa-plus"></i>
@@ -94,7 +112,7 @@ export const UserManage = () => {
               <th>First name</th>
               <th>Last name</th>
               <th>Address</th>
-              <th>Action</th>
+              <th className="text-center">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -104,11 +122,14 @@ export const UserManage = () => {
                 <td>{item.firstName}</td>
                 <td>{item.lastName}</td>
                 <td>{item.address}</td>
-                <td>
-                  <button className="btn-edit" onClick={() => handleGetOneUser(item.id)}>
+                <td className="d-flex gap-4 justify-content-center">
+                  <button className="btn-table btn-edit" onClick={() => handleGetOneUser(item.id)}>
                     <i className="fas fa-pencil-alt"></i>
                   </button>
-                  <button className="btn-delete" onClick={() => handleDeleteUser(item.id)}>
+                  <button
+                    className="btn-table btn-delete"
+                    onClick={() => handleDeleteUser(item.id)}
+                  >
                     <i className="fas fa-trash"></i>
                   </button>
                 </td>

@@ -1,5 +1,6 @@
 .navbar-admin {
   background: #0071ba;
+  font-size: 14px;
   & .navbar-brand {
     font-size: 22px;
     font-weight: 500;
@@ -8,6 +9,9 @@
     display: flex;
     align-items: center;
     font-weight: bold;
+    .welcome {
+      margin-right: 20px;
+    }
     .language-en {
       cursor: pointer;
       margin: 0 15px 0 10px;

@@ -5,6 +5,7 @@ import { ListOneResponse, ListResponse } from '../api/statusCodes';
 export interface LoginData {
   email: string;
   roleId: string;
+  firstName: string;
 }
 
 export interface UserData {
@@ -14,7 +15,7 @@ export interface UserData {
   lastName: string;
   address: string;
   phonenumber: string;
-  gender: number;
+  gender: string;
   image: string;
   roleId: string;
   positionId: string;
@@ -26,6 +27,11 @@ export interface CreateData {
   firstName: string;
   lastName: string;
   address: string;
+  phoneNumber: string;
+  gender: string;
+  position: string;
+  role: string;
+  avatar?: string;
 }
 
 export interface EditUser {
@@ -33,6 +39,19 @@ export interface EditUser {
   firstName: string;
   lastName: string;
   address: string;
+  phoneNumber: string;
+  gender: string;
+  role: string;
+  position: string;
+  avatar?: string;
+}
+
+export interface Allcode {
+  id: string;
+  key: string;
+  type: string;
+  valueEn: string;
+  valueVi: string;
 }
 
 export const userApi = {
@@ -64,5 +83,10 @@ export const userApi = {
   deleteUser(id: number): Promise<ListResponse<[]>> {
     const url = `${BASE_URL}/user/delete`;
     return instance.delete(url, { data: { id } });
+  },
+
+  getAllcode(type: string): Promise<ListResponse<Allcode>> {
+    const url = `${BASE_URL}/allcode/get-all?type=${type}`;
+    return instance.get(url);
   },
 };
