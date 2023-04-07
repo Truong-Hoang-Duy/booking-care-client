@@ -1,5 +1,5 @@
 import { createBrowserHistory } from 'history';
-import { useLayoutEffect, useState } from 'react';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { Router } from 'react-router-dom';
 import './App.scss';
 import Navigation from './Navigation';
@@ -25,6 +25,11 @@ const CustomRouter = ({ history, ...props }: any) => {
 };
 
 function App() {
+  useEffect(() => {
+    window.addEventListener('load', () => {
+      localStorage.removeItem('access_token');
+    });
+  }, []);
   return (
     <div className="App">
       <CustomRouter history={history}>

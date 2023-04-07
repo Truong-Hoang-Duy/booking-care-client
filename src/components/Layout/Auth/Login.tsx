@@ -1,6 +1,6 @@
 import { authActions } from '@/modules/Auth/authSlice';
 import { useAppDispatch, useAppSelector } from '@/utils/useGetData';
-import { useEffect, useState } from 'react';
+import { KeyboardEvent, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginStyle.scss';
 
@@ -23,6 +23,12 @@ const Login = () => {
     const isLoggedIn = Boolean(localStorage.getItem('access_token'));
     if (isLoggedIn) navigate('/system/user-manage');
   }, []);
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleLogin();
+    }
+  };
 
   return (
     <div className="login-background">
@@ -51,6 +57,7 @@ const Login = () => {
                 placeholder="Enter your password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                onKeyDown={(e) => handleKeyDown(e)}
               />
               <div onClick={() => setIsShowPw(!isShowPw)}>
                 <i className={isShowPw ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash'}></i>

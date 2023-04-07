@@ -14,7 +14,7 @@
     },
 
     "banner": {
-      "heading": "MEDICAL BACKGROUND",
+      "heading": "MEDICAL PLATFORM",
       "title": "COMPREHENSIVE HEALTH CARE",
       "specialized": {
         "text1": "Specialized",
@@ -86,6 +86,13 @@
       "manage-specialty": "Specialty management",
       "handbook": "Handbook",
       "manage-handbook": "Handbook management"
+    },
+    "doctor": {
+      "manage-schedule": "Manage Doctor's schedule",
+      "title": "Manage doctor's examination plan",
+      "choose-doctor": "Choose doctor",
+      "choose-date": "Choose date",
+      "save": "Save"
     }
   },
 

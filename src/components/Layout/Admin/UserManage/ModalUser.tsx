@@ -34,12 +34,6 @@ const ModalUser = (props: {
   const [positionList, setPositionList] = useState<Allcode[]>([]);
   const [roleList, setRoleList] = useState<Allcode[]>([]);
 
-  // useEffect(() => {
-  //   const image = new Image();
-  //   image.src = oneUser?.image.toString();
-  //   document.body.appendChild(image);
-  // }, [oneUser]);
-
   useEffect(() => {
     (async () => {
       const gender = await userApi.getAllcode('gender');
@@ -288,7 +282,7 @@ const ModalUser = (props: {
                   {language === 'vi' ? 'Vui lòng chọn giới tính' : 'Please select your gender'}
                 </option>
                 {genderList?.map((item) => (
-                  <option value={item.key} key={item.id}>
+                  <option value={item.keyMap} key={item.id}>
                     {language === 'vi' ? item.valueVi : item.valueEn}
                   </option>
                 ))}
@@ -312,7 +306,7 @@ const ModalUser = (props: {
                   {language === 'vi' ? 'Vui lòng chọn chức danh' : 'Please select your position'}
                 </option>
                 {positionList?.map((item) => (
-                  <option value={item.key} key={item.id}>
+                  <option value={item.keyMap} key={item.id}>
                     {language === 'vi' ? item.valueVi : item.valueEn}
                   </option>
                 ))}
@@ -338,7 +332,7 @@ const ModalUser = (props: {
                   {language === 'vi' ? 'Vui lòng chọn vai trò' : 'Please select your role'}
                 </option>
                 {roleList?.map((item) => (
-                  <option value={item.key} key={item.id}>
+                  <option value={item.keyMap} key={item.id}>
                     {language === 'vi' ? item.valueVi : item.valueEn}
                   </option>
                 ))}

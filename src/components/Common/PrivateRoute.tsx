@@ -1,4 +1,5 @@
 import { useAppSelector } from '@/utils/useGetData';
+import { useEffect } from 'react';
 import { Navigate } from 'react-router-dom';
 
 export function PrivateRoute({ children }: { children: JSX.Element }) {

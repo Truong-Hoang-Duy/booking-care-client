@@ -7,14 +7,25 @@ import {
   MedicalData,
   SpecialtyData,
 } from '@/components/Common/HomeSection/fakeData';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Banner } from './Banner';
 import { About } from './Section/About';
 import { Handbook } from './Section/Handbook';
 import { OutstandingDoctor } from './Section/Outstanding';
+import { doctorApi, doctorData } from '@/services/doctorService';
+import { useAppSelector } from '@/utils/useGetData';
 
 const Home = () => {
+  const [doctor, setDoctor] = useState<doctorData[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const response = await doctorApi.getAllDoctor();
+      setDoctor(response.data);
+    })();
+  }, []);
+
   return (
     <>
       <HomeHeader />
@@ -36,7 +47,7 @@ const Home = () => {
       <OutstandingDoctor
         heading={<FormattedMessage id="home.section.doctor" />}
         buttonText={<FormattedMessage id="home.section.button" />}
-        data={DoctorData}
+        data={doctor}
       />
 
       <Handbook

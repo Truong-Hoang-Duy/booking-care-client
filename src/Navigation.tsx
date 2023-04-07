@@ -1,10 +1,12 @@
 import { Outlet, Route, Routes } from 'react-router-dom';
 import { PrivateRoute } from './components/Common';
-import { UserManage } from './components/Layout/Admin';
+import { DoctorScheduleManage, UserManage } from './components/Layout/Admin';
 import AdminPage from './pages/AdminPage';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import NotFoundPage from './pages/NotFoundPage';
+import DoctorManage from './components/Layout/Admin/DoctorManage/DoctorManage';
+import { DetailDoctor } from './components/Layout/Doctor/DetailDoctor';
 
 const Navigation = () => {
   return (
@@ -21,7 +23,10 @@ const Navigation = () => {
           }
         >
           <Route path="user-manage" element={<UserManage />}></Route>
+          <Route path="doctor-manage" element={<DoctorManage />}></Route>
+          <Route path="doctor/manage-schedule" element={<DoctorScheduleManage />}></Route>
         </Route>
+        <Route path="detail-doctor/:id" element={<DetailDoctor />}></Route>
       </Route>
 
       <Route path="*" element={<NotFoundPage />}></Route>

@@ -10,6 +10,7 @@ import App from './App';
 import './index.scss';
 import IntlProviderWrapper from './shared/hoc/IntlProviderWrapper';
 import { persistor, store } from './shared/store/store';
+import 'react-datepicker/dist/react-datepicker.css';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -20,12 +21,12 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
           <ToastContainer
             position="top-right"
             autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
+            hideProgressBar
+            newestOnTop
             closeOnClick
             rtl={false}
-            pauseOnFocusLoss
-            draggable
+            pauseOnFocusLoss={false}
+            draggable={false}
             pauseOnHover
             theme="light"
           />

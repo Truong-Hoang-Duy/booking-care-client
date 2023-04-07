@@ -48,10 +48,11 @@ export interface EditUser {
 
 export interface Allcode {
   id: string;
-  key: string;
+  keyMap: string;
   type: string;
   valueEn: string;
   valueVi: string;
+  isSelected: boolean;
 }
 
 export const userApi = {

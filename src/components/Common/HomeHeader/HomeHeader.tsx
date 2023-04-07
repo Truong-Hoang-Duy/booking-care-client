@@ -17,7 +17,7 @@ const HomeHeader = () => {
         <div className="left-content">
           <i className="fa-solid fa-bars left-content-menu"></i>
           <a href="/" className="home-header-link">
-            <img src="src/assets/images/logo.svg" className="home-header-logo" alt="" />
+            <img src="/src/assets/images/logo.svg" className="home-header-logo" alt="" />
           </a>
         </div>
 

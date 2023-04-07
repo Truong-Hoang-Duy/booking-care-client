@@ -1,12 +1,12 @@
 import { CreateData, EditUser, userApi, UserData } from '@/services';
 import { emitter } from '@/utils';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { toast } from 'react-toastify';
-import './AdminStyle.scss';
-import ModalUser from './ModalUser';
-import { FormattedMessage } from 'react-intl';
 import { Buffer } from 'buffer';
+import { useEffect, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
+import { toast } from 'react-toastify';
+import ModalUser from './ModalUser';
+import './UserManageStyle.scss';
 
 export const UserManage = () => {
   const [user, setUser] = useState<UserData[]>([]);
