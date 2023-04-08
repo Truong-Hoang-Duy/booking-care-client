@@ -85,14 +85,23 @@
       "specialty": "Specialty",
       "manage-specialty": "Specialty management",
       "handbook": "Handbook",
-      "manage-handbook": "Handbook management"
+      "manage-handbook": "Handbook management",
+      "manage-schedule": "Manage Doctor's schedule"
     },
     "doctor": {
-      "manage-schedule": "Manage Doctor's schedule",
-      "title": "Manage doctor's examination plan",
-      "choose-doctor": "Choose doctor",
-      "choose-date": "Choose date",
-      "save": "Save"
+      "manage-schedule": {
+        "title": "Manage doctor's examination plan",
+        "choose-doctor": "Choose doctor",
+        "choose-date": "Choose date",
+        "save": "Save"
+      },
+      "manage-doctor": {
+        "title": "Create doctor information",
+        "select-doctor": "Select doctor",
+        "intro": "Introduction",
+        "add": "Create",
+        "save": "Save"
+      }
     }
   },
 
@@ -112,5 +121,14 @@
     "buttonSave": "Add",
     "buttonEdit": "Edit",
     "buttonCancel": "Cancel"
+  },
+
+  "patient": {
+    "detail-doctor": {
+      "schedule": "Schedule",
+      "no-schedule": "The doctor does not have an appointment during this time, please choose another time!",
+      "choose": "Choose ",
+      "book-free": " and book (Scheduling fee 0 VND)"
+    }
   }
 }

@@ -46,6 +46,29 @@ export interface DetailInfoDoctor {
   Markdown: CreateDoctorInfo;
 }
 
+export interface ScheduleData {
+  doctorId: number;
+  date: number;
+  timeType: string;
+}
+
+export interface CreateSchedule {
+  arrSchedule: ScheduleData[];
+  doctorId: number;
+  date: number;
+}
+
+export interface GetScheduleData {
+  id: number;
+  doctorId: number;
+  date: number;
+  timeType: string;
+  timeTypeData: {
+    valueEn: string;
+    valueVi: string;
+  };
+}
+
 export const doctorApi = {
   getAllDoctor(limit = 10): Promise<ListResponse<doctorData>> {
     const url = `${BASE_URL}/doctor/get-all?limit=${limit}`;
@@ -57,6 +80,14 @@ export const doctorApi = {
   },
   getDetailInfoDoctor(id: string | number | undefined): Promise<ListOneResponse<DetailInfoDoctor>> {
     const url = `${BASE_URL}/doctor/get-detail-by-id?id=${id}`;
+    return instance.get(url);
+  },
+  createSchedule(data: CreateSchedule): Promise<ListResponse<[]>> {
+    const url = `${BASE_URL}/schedule/create`;
+    return instance.post(url, data);
+  },
+  getSchedule(doctorId: number, date: number): Promise<ListResponse<GetScheduleData>> {
+    const url = `${BASE_URL}/schedule-by-date/get-all?doctorId=${doctorId}&date=${date}`;
     return instance.get(url);
   },
 };

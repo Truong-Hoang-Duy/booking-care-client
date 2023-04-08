@@ -5,12 +5,12 @@ import { useEffect, useState } from 'react';
 import { doctorApi } from '@/services/doctorService';
 import { DetailInfoDoctor } from '@/services/doctorService';
 import { useAppSelector } from '@/utils/useGetData';
+import DoctorSchedule from './DoctorSchedule';
 
 const DetailDoctor = () => {
   const { id } = useParams();
   const [detailDoctor, setDetailDoctor] = useState<DetailInfoDoctor>();
   const { language } = useAppSelector((state) => state.lang);
-  console.log('DetailDoctor ~ detailDoctor:', detailDoctor);
   useEffect(() => {
     (async () => {
       const { data } = await doctorApi.getDetailInfoDoctor(id);
@@ -30,8 +30,8 @@ const DetailDoctor = () => {
                 : `${detailDoctor?.positionData.valueEn}, ${detailDoctor?.firstName} ${detailDoctor?.lastName}`}
             </div>
             <div className="desc">
-              {detailDoctor?.Markdown.description &&
-                detailDoctor?.Markdown.description.split(/\n/).map((item) => (
+              {detailDoctor?.Markdown?.description &&
+                detailDoctor?.Markdown?.description.split(/\n/).map((item) => (
                   <p className="mb-1" key={item}>
                     {item}
                   </p>
@@ -39,7 +39,13 @@ const DetailDoctor = () => {
             </div>
           </div>
         </div>
-        <div className="schedule-doctor container"></div>
+        <div className="schedule-doctor container">
+          <div className="schedule-doctor-left">
+            <DoctorSchedule />
+          </div>
+          <div className="schedule-doctor-right"></div>
+        </div>
+
         <div className="detail-info-doctor">
           <div className="container">
             {detailDoctor?.Markdown && (

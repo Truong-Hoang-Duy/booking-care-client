@@ -1,25 +1,19 @@
-import { FormattedMessage } from 'react-intl';
-import './DoctorScheduleStyle.scss';
-import { Button, FormGroup, Input, Label } from 'reactstrap';
-import Select from 'react-select';
-import { useEffect, useState } from 'react';
-import { useAppSelector } from '@/utils/useGetData';
-import { doctorApi } from '@/services/doctorService';
-import DatePicker from 'react-datepicker';
-import moment from 'moment';
 import { Allcode, userApi } from '@/services';
-import { toast } from 'react-toastify';
+import { ScheduleData, doctorApi } from '@/services/doctorService';
+import { useAppSelector } from '@/utils/useGetData';
+import axios from 'axios';
 import _ from 'lodash';
+import { useEffect, useState } from 'react';
+import DatePicker from 'react-datepicker';
+import { FormattedMessage } from 'react-intl';
+import Select from 'react-select';
+import { toast } from 'react-toastify';
+import { Button } from 'reactstrap';
+import './DoctorScheduleStyle.scss';
 
 interface SelectOption {
   value: number;
   label: string;
-}
-
-interface ResultData {
-  doctorId: number;
-  date: string;
-  time: string;
 }
 
 const DoctorScheduleManage = () => {
@@ -54,7 +48,7 @@ const DoctorScheduleManage = () => {
       }
       setRangeTime(data);
     })();
-  }, []);
+  }, [startDate]);
 
   const handleChangeSelect = async (option: SelectOption | null) => {
     setSelectedOption(option);
@@ -70,10 +64,10 @@ const DoctorScheduleManage = () => {
     }
   };
 
-  const handleSaveSchedule = () => {
-    const formatedDate = moment(startDate).format('DD/MM/YYYY');
-    let result: ResultData[] = [];
+  const handleSaveSchedule = async () => {
+    let result: ScheduleData[] = [];
 
+    // validate before call api
     if (_.isNull(selectedOption)) {
       toast.error('Invalid doctor!');
       return;
@@ -81,33 +75,50 @@ const DoctorScheduleManage = () => {
     if (!startDate) {
       toast.error('Invalid date!');
       return;
-    }
-    if (rangeTime && rangeTime.length > 0) {
-      const selectedTime = rangeTime.filter((item) => item.isSelected);
-      if (selectedTime && selectedTime.length > 0) {
-        result = selectedTime.map((time) => ({
+    } else {
+      const formatedDate = new Date(startDate).getTime();
+      if (rangeTime && rangeTime.length > 0) {
+        const selectedTime = rangeTime.filter((item) => item.isSelected);
+        if (selectedTime && selectedTime.length > 0) {
+          result = selectedTime.map((time) => ({
+            doctorId: selectedOption.value,
+            date: formatedDate,
+            timeType: time.keyMap,
+          }));
+        } else {
+          toast.error('Invalid time!');
+          return;
+        }
+      }
+
+      // call API
+      try {
+        const response = await doctorApi.createSchedule({
+          arrSchedule: result,
           doctorId: selectedOption.value,
           date: formatedDate,
-          time: time.keyMap,
-        }));
-      } else {
-        toast.error('Invalid time!');
-        return;
+        });
+        if (response.code === 200) {
+          toast.success(response.message);
+        }
+      } catch (error) {
+        if (axios.isAxiosError(error) && error.response) {
+          toast.error(error.response.data.message);
+        }
       }
     }
-    console.log(result);
   };
 
   return (
     <div className="manage-schedule-container">
       <h1 className="title text-center mt-3 text-secondary fw-bold">
-        <FormattedMessage id="menu.doctor.title" />
+        <FormattedMessage id="menu.doctor.manage-schedule.title" />
       </h1>
       <div className="container">
         <div className="row">
           <div className="col-6 form-group">
             <label className="mb-2">
-              <FormattedMessage id="menu.doctor.choose-doctor" />
+              <FormattedMessage id="menu.doctor.manage-schedule.choose-doctor" />
             </label>
             <Select
               defaultValue={selectedOption}
@@ -119,7 +130,7 @@ const DoctorScheduleManage = () => {
 
           <div className="col-6 form-group">
             <label className="mb-2" htmlFor="date">
-              <FormattedMessage id="menu.doctor.choose-date" />
+              <FormattedMessage id="menu.doctor.manage-schedule.choose-date" />
             </label>
             <DatePicker
               id="date"
@@ -147,7 +158,7 @@ const DoctorScheduleManage = () => {
           </div>
           <div className="col-12">
             <Button color="primary" className="btn-save-schedule" onClick={handleSaveSchedule}>
-              <FormattedMessage id="menu.doctor.save" />
+              <FormattedMessage id="menu.doctor.manage-schedule.save" />
             </Button>
           </div>
         </div>
