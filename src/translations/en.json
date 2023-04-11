@@ -100,7 +100,21 @@
         "select-doctor": "Select doctor",
         "intro": "Introduction",
         "add": "Create",
-        "save": "Save"
+        "save": "Save",
+        "price": "Price",
+        "payment": "Payment",
+        "province": "Province",
+        "nameClinic": "Clinic's name",
+        "addressClinic": "Clinic's address",
+        "note": "Note",
+        "placeholder": {
+          "doctor": "Please choose a doctor",
+          "price": "Please choose a price",
+          "payment": "Please choose a payment method",
+          "province": "Please choose a province",
+          "nameClinic": "Please enter clinic name",
+          "addressClinic": "Please enter clinic address"
+        }
       }
     }
   },
@@ -129,6 +143,14 @@
       "no-schedule": "The doctor does not have an appointment during this time, please choose another time!",
       "choose": "Choose ",
       "book-free": " and book (Scheduling fee 0 VND)"
+    },
+    "extra-infor-doctor": {
+      "text-address": "Address of examination",
+      "price": "Examination price:",
+      "detail": "See details",
+      "hide-price": "Hide price list",
+      "note": "Được ưu tiên khám trước khi đật khám qua BookingCare. ",
+      "payment": "The patient can pay the cost in the form of: "
     }
   }
 }

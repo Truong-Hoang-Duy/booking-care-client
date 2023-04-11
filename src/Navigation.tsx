@@ -1,12 +1,12 @@
 import { Outlet, Route, Routes } from 'react-router-dom';
 import { PrivateRoute } from './components/Common';
 import { DoctorScheduleManage, UserManage } from './components/Layout/Admin';
+import DoctorManage from './components/Layout/Admin/DoctorManage/DoctorManage';
+import { DetailDoctor } from './components/Layout/Doctor/DetailDoctor';
 import AdminPage from './pages/AdminPage';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import NotFoundPage from './pages/NotFoundPage';
-import DoctorManage from './components/Layout/Admin/DoctorManage/DoctorManage';
-import { DetailDoctor } from './components/Layout/Doctor/DetailDoctor';
 
 const Navigation = () => {
   return (

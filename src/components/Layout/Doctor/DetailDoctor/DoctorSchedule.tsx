@@ -7,8 +7,14 @@ import { capitalize } from 'lodash';
 import { useParams } from 'react-router-dom';
 import { GetScheduleData, doctorApi } from '@/services/doctorService';
 import { FormattedMessage } from 'react-intl';
+import BookingModal from './Modal/BookingModal';
+import { initialValueModal } from './constants';
 
 const DoctorSchedule = () => {
+  const [modal, setModal] = useState(true);
+  const toggle = () => setModal(!modal);
+  const [dataModal, setDataModal] = useState<GetScheduleData>(initialValueModal);
+
   const [allDays, setAllDays] = useState([
     {
       label: '',
@@ -74,53 +80,66 @@ const DoctorSchedule = () => {
     }
   };
 
+  const handleClickTime = (item: GetScheduleData) => {
+    setDataModal(item);
+    toggle();
+  };
+
   return (
-    <div className="schedule-doctor-container">
-      <div className="schedule-doctor-select">
-        <select name="" id="" onChange={(e) => handleChangeDate(e)}>
-          {allDays &&
-            allDays.length > 0 &&
-            allDays.map((item) => (
-              <option value={item.value} key={item.value}>
-                {item.label}
-              </option>
-            ))}
-        </select>
+    <>
+      <div className="schedule-doctor-container">
+        <div className="schedule-doctor-select">
+          <select name="" id="" onChange={(e) => handleChangeDate(e)}>
+            {allDays &&
+              allDays.length > 0 &&
+              allDays.map((item) => (
+                <option value={item.value} key={item.value}>
+                  {item.label}
+                </option>
+              ))}
+          </select>
+        </div>
+
+        <div className="schedule-doctor-time">
+          <div className="calendar">
+            <span>
+              <i className="fas fa-calendar-alt"></i>
+              <FormattedMessage id="patient.detail-doctor.schedule" />
+            </span>
+          </div>
+          <div className="time-container">
+            {allAvailableTime && allAvailableTime.length > 0 ? (
+              <>
+                <div className="time-content-btn">
+                  {allAvailableTime.map((item) => (
+                    <button
+                      onClick={() => handleClickTime(item)}
+                      key={item.id}
+                      className={language === 'vi' ? 'btn-vi' : 'btn-en'}
+                    >
+                      {language === 'vi' ? item.timeTypeData.valueVi : item.timeTypeData.valueEn}
+                    </button>
+                  ))}
+                </div>
+                <div className="book-free">
+                  <span>
+                    <FormattedMessage id="patient.detail-doctor.choose" />
+                    <i className="fa-regular fa-hand-pointer"></i>
+                    <FormattedMessage id="patient.detail-doctor.book-free" />
+                  </span>
+                </div>
+              </>
+            ) : (
+              <div className="fst-italic">
+                <FormattedMessage id="patient.detail-doctor.no-schedule" />
+              </div>
+            )}
+          </div>
+        </div>
       </div>
 
-      <div className="schedule-doctor-time">
-        <div className="calendar">
-          <span>
-            <i className="fas fa-calendar-alt"></i>
-            <FormattedMessage id="patient.detail-doctor.schedule" />
-          </span>
-        </div>
-        <div className="time-container">
-          {allAvailableTime && allAvailableTime.length > 0 ? (
-            <>
-              <div className="time-content-btn">
-                {allAvailableTime.map((item) => (
-                  <button key={item.id} className={language === 'vi' ? 'btn-vi' : 'btn-en'}>
-                    {language === 'vi' ? item.timeTypeData.valueVi : item.timeTypeData.valueEn}
-                  </button>
-                ))}
-              </div>
-              <div className="book-free">
-                <span>
-                  <FormattedMessage id="patient.detail-doctor.choose" />
-                  <i className="fa-regular fa-hand-pointer"></i>
-                  <FormattedMessage id="patient.detail-doctor.book-free" />
-                </span>
-              </div>
-            </>
-          ) : (
-            <div className="fst-italic">
-              <FormattedMessage id="patient.detail-doctor.no-schedule" />
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
+      <BookingModal dataSchdule={dataModal} modal={modal} toggle={toggle} />
+    </>
   );
 };
 

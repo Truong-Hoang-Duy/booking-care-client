@@ -1,6 +1,7 @@
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
+import 'react-datepicker/dist/react-datepicker.css';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
@@ -10,7 +11,6 @@ import App from './App';
 import './index.scss';
 import IntlProviderWrapper from './shared/hoc/IntlProviderWrapper';
 import { persistor, store } from './shared/store/store';
-import 'react-datepicker/dist/react-datepicker.css';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>

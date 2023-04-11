@@ -2,6 +2,11 @@ import instance from '@/api/axios';
 import { ListOneResponse, ListResponse } from '@/api/statusCodes';
 import { BASE_URL } from '@/shared/configs/config';
 
+interface ValueAllCode {
+  valueEn: string;
+  valueVi: string;
+}
+
 export interface doctorData {
   id: number;
   email: string;
@@ -17,10 +22,7 @@ export interface doctorData {
     valueEn: string;
     valueVi: string;
   };
-  genderData: {
-    valueEn: string;
-    valueVi: string;
-  };
+  genderData: ValueAllCode;
 }
 
 export interface CreateDoctorInfo {
@@ -28,6 +30,18 @@ export interface CreateDoctorInfo {
   contentHTML: string;
   contentMarkdown: string;
   description: string;
+}
+
+export interface DoctorInfor {
+  addressClinic: string;
+  nameClinic: string;
+  note: string;
+  paymentId: string;
+  paymentTypeData: ValueAllCode;
+  priceId: string;
+  priceTypeData: ValueAllCode;
+  provinceId: string;
+  provinceTypeData: ValueAllCode;
 }
 
 export interface DetailInfoDoctor {
@@ -39,11 +53,9 @@ export interface DetailInfoDoctor {
   phonenumber: string;
   gender: string;
   image: string;
-  positionData: {
-    valueEn: string;
-    valueVi: string;
-  };
+  positionData: ValueAllCode;
   Markdown: CreateDoctorInfo;
+  Doctor_Infor: DoctorInfor;
 }
 
 export interface ScheduleData {
@@ -63,10 +75,7 @@ export interface GetScheduleData {
   doctorId: number;
   date: number;
   timeType: string;
-  timeTypeData: {
-    valueEn: string;
-    valueVi: string;
-  };
+  timeTypeData: ValueAllCode;
 }
 
 export const doctorApi = {

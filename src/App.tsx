@@ -3,6 +3,7 @@ import { useEffect, useLayoutEffect, useState } from 'react';
 import { Router } from 'react-router-dom';
 import './App.scss';
 import Navigation from './Navigation';
+import ScrollToTop from './shared/hooks/ScrollToTop';
 
 export const history = createBrowserHistory();
 
@@ -33,6 +34,7 @@ function App() {
   return (
     <div className="App">
       <CustomRouter history={history}>
+        <ScrollToTop />
         <Navigation />
       </CustomRouter>
     </div>
