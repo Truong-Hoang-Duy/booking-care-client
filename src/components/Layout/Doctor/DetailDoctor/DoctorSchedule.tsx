@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from 'react';
-import './DetailDoctorStyle.scss';
+import './Styles/DetailDoctorStyle.scss';
 import { useAppSelector } from '@/utils/useGetData';
 import dayjs from 'dayjs';
 import 'dayjs/locale/vi';

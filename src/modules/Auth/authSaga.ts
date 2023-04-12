@@ -16,7 +16,11 @@ function* handleLogin(payload: LoginPayload) {
     const response: ListOneResponse<LoginData> = yield call(fetchUser, payload);
     yield put(authActions.loginSuccess(response));
     localStorage.setItem('access_token', 'token');
-    history.push('/system');
+    if (response.data.roleId === 'R3') {
+      history.push('/');
+    } else {
+      history.push('/system');
+    }
   } catch (error) {
     if (request.isAxiosError(error) && error.response) {
       yield put(authActions.loginError(error.response.data));

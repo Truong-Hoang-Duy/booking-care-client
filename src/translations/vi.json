@@ -10,7 +10,9 @@
       "fee": "Gói khám",
       "checkHealth": "Khám sức khoẻ tổng quát",
       "lang": "Ngôn ngữ",
-      "welcome": "Xin chào"
+      "welcome": "Xin chào",
+      "login": "Đăng nhập",
+      "logout": "Đăng xuất"
     },
 
     "banner": {
@@ -66,11 +68,18 @@
     }
   },
 
-  "login": {
-    "login": "Đăng nhập",
-    "username": "Tên đăng nhập",
+  "account": {
     "password": "Mật khẩu",
-    "userpass-wrong": "Sai tên đăng nhập hoặc mật khẩu!"
+    "forgot-password": "Quên mật khẩu",
+    "verify-doctor": "Chú ý: Nếu là bác sĩ vui lòng liên hệ với quản trị viên của BookingCare để được cấp tài khoản.",
+    "or": "Hoặc",
+    "re-password": "Xác nhận mật khẩu",
+    "policy": "Bằng việc đăng kí, bạn đã đồng ý với Bookingcare về",
+    "term": "Điều khoản dịch vụ ",
+    "privacy": " Chính sách bảo mật",
+    "new-account": "Bạn mới biết đến Bookingcare? ",
+    "have-account": "Bạn đã có tài khoản? ",
+    "sign-up": "Đăng ký"
   },
 
   "menu": {
@@ -151,6 +160,10 @@
       "hide-price": "Ẩn bảng giá",
       "note": "Được ưu tiên khám trước khi đật khám qua BookingCare. ",
       "payment": "Người bệnh có thể thanh toán chi phí bằng hình thức: "
+    },
+    "booking-modal": {
+      "title": "Thông tin đặt lịch khám bệnh",
+      "free-booking": "Miễn phí đặt lịch"
     }
   }
 }

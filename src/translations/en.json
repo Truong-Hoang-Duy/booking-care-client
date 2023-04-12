@@ -10,7 +10,9 @@
       "fee": "Checkup package",
       "checkHealth": "General health check",
       "lang": "Language",
-      "welcome": "Welcome"
+      "welcome": "Welcome",
+      "login": "Log in",
+      "logout": "Log out"
     },
 
     "banner": {
@@ -66,11 +68,18 @@
     }
   },
 
-  "login": {
-    "login": "Login",
-    "username": "Username",
+  "account": {
     "password": "Password",
-    "userpass-wrong": "Invalid username or password!"
+    "forgot-password": "Forgot Password",
+    "verify-doctor": "Note: If you are a doctor, please contact the administrator of BookingCare to get an account.",
+    "or": "Or",
+    "re-password": "Confirm the password",
+    "policy": "By signing up, you agree to Bookingcare's",
+    "term": "Terms of Service ",
+    "privacy": " Privacy Policy",
+    "new-account": "New to Bookingcare? ",
+    "have-account": "Have an account? ",
+    "sign-up": "Sign up"
   },
 
   "menu": {
@@ -151,6 +160,10 @@
       "hide-price": "Hide price list",
       "note": "Được ưu tiên khám trước khi đật khám qua BookingCare. ",
       "payment": "The patient can pay the cost in the form of: "
+    },
+    "booking-modal": {
+      "title": "Information to book a medical appointment",
+      "free-booking": "Free booking"
     }
   }
 }

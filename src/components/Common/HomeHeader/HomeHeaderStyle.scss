@@ -24,8 +24,8 @@
         cursor: pointer;
       }
       .home-header-link {
-        width: 200px;
-        height: 200px;
+        width: 170px;
+        height: auto;
       }
       .home-header-logo {
         width: 100%;
@@ -44,7 +44,7 @@
       }
       .subs-title {
         font-weight: lighter;
-        font-size: 12px;
+        font-size: 10px;
       }
     }
 
@@ -52,7 +52,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 20px;
+      gap: 10px;
+      font-size: 14px;
+
       .language-option {
         display: flex;
         align-items: center;
@@ -62,8 +64,12 @@
         &:hover .language-select {
           display: block;
         }
-        i {
+        i:first-child {
           color: #45c3d2;
+          cursor: pointer;
+        }
+        i:last-child {
+          color: #969495;
           cursor: pointer;
         }
         span {
@@ -96,6 +102,18 @@
             color: #45c3d2;
           }
         }
+      }
+
+      .account {
+        color: #969495;
+        line-height: 30px;
+        font-weight: 700;
+        cursor: pointer;
+        padding-right: 10px;
+        text-decoration: none;
+      }
+      .login {
+        border-right: 2px solid #ddd;
       }
     }
   }

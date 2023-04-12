@@ -1,11 +1,16 @@
 import './HomeHeaderStyle.scss';
 import { FormattedMessage } from 'react-intl';
 import { ChangeEvent, MouseEvent } from 'react';
-import { useAppDispatch } from '@/utils/useGetData';
+import { useAppDispatch, useAppSelector } from '@/utils/useGetData';
 import { langActions } from '@/modules/Lang/langSlice';
+import { Link } from 'react-router-dom';
+import _ from 'lodash';
+import { authActions } from '@/modules/Auth/authSlice';
 
 const HomeHeader = () => {
   const dispatch = useAppDispatch();
+
+  const { data } = useAppSelector((state) => state.auth);
 
   const handleChooseLang = (e: MouseEvent<HTMLDivElement>) => {
     dispatch(langActions.switchLanguage(e.currentTarget.id));
@@ -13,9 +18,9 @@ const HomeHeader = () => {
 
   return (
     <div className="home-header-container">
-      <div className="home-header-content container">
+      <div className="home-header-content">
         <div className="left-content">
-          <i className="fa-solid fa-bars left-content-menu"></i>
+          {/* <i className="fa-solid fa-bars left-content-menu"></i> */}
           <a href="/" className="home-header-link">
             <img src="/src/assets/images/logo.svg" className="home-header-logo" alt="" />
           </a>
@@ -83,7 +88,26 @@ const HomeHeader = () => {
                 <span id="en">EN</span>
               </div>
             </div>
+            <i className="fa-solid fa-chevron-down px-2"></i>
           </div>
+
+          {_.isEmpty(data?.email) ? (
+            <>
+              <Link to="/signup" className="account login">
+                <FormattedMessage id="account.sign-up" />
+              </Link>
+              <Link to="/login" className="account">
+                <FormattedMessage id="home.header.login" />
+              </Link>
+            </>
+          ) : (
+            <>
+              <div className="account login pe-none">{data?.email}</div>
+              <div className="account" onClick={() => dispatch(authActions.logout())}>
+                <FormattedMessage id="home.header.logout" />
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

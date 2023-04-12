@@ -61,6 +61,11 @@ export const userApi = {
     return instance.post(url, { email, password });
   },
 
+  handleSignUp(data: { email: string; password: string }): Promise<ListResponse<[]>> {
+    const url = `${BASE_URL}/signup`;
+    return instance.post(url, data);
+  },
+
   getUsers(id: string): Promise<ListResponse<UserData>> {
     const url = `${BASE_URL}/user/get-all?id=${id}`;
     return instance.get(url);

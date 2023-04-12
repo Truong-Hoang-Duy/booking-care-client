@@ -1,5 +1,5 @@
 import { HomeHeader } from '@/components/Common';
-import './DetailDoctorStyle.scss';
+import './Styles/DetailDoctorStyle.scss';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { doctorApi } from '@/services/doctorService';

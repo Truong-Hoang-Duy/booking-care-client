@@ -48,3 +48,12 @@ export const initialValueModal = {
     valueVi: '',
   },
 };
+
+export const initialValuePatient = {
+  email: '',
+  firstName: '',
+  lastName: '',
+  address: '',
+  phonenumber: '',
+  gender: '',
+};

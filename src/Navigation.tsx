@@ -7,6 +7,7 @@ import AdminPage from './pages/AdminPage';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import NotFoundPage from './pages/NotFoundPage';
+import { SignUp } from './components/Layout/Auth';
 
 const Navigation = () => {
   return (
@@ -14,6 +15,7 @@ const Navigation = () => {
       <Route path="/" element={<Outlet />}>
         <Route index={true} element={<HomePage />}></Route>
         <Route path="login" element={<LoginPage />}></Route>
+        <Route path="signup" element={<SignUp />}></Route>
         <Route
           path="system"
           element={
