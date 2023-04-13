@@ -44,10 +44,10 @@ const DetailDoctor = () => {
         </div>
         <div className="schedule-doctor container">
           <div className="schedule-doctor-left">
-            <DoctorSchedule />
+            <DoctorSchedule id={id} />
           </div>
           <div className="schedule-doctor-right">
-            <DoctorExtraInfor doctorInfo={detailDoctor.Doctor_Infor} />
+            <DoctorExtraInfor id={id} />
           </div>
         </div>
 

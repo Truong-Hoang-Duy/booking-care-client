@@ -23,7 +23,7 @@ const MarkdownEditor = ({
   return (
     <MdEditor
       value={contentMarkdown}
-      style={{ height: '380px' }}
+      style={{ height: '400px' }}
       renderHTML={(text) => mdParser.render(text)}
       onChange={handleEditorChange}
     />

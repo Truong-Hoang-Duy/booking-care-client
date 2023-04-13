@@ -1,23 +1,22 @@
-import { useParams } from 'react-router-dom';
-import './Styles/ProfileDoctorStyle.scss';
-import { ReactNode, useEffect, useState } from 'react';
 import { DetailInfoDoctor, GetScheduleData, doctorApi } from '@/services/doctorService';
-import { initialValue } from './constants';
-import { useAppSelector } from '@/utils/useGetData';
-import { ConvertIntoSelect } from '@/utils/ConvertIntoSelect';
 import CommonUtils from '@/utils/CommonUtils';
+import { useAppSelector } from '@/utils/useGetData';
+import _ from 'lodash';
+import { ReactNode, useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
-import _, { capitalize } from 'lodash';
-import dayjs from 'dayjs';
+import './Styles/ProfileDoctorStyle.scss';
+import { initialValue } from './constants';
 
 const ProfileDoctor = ({
+  id,
   isShowDescDoctor,
   dataSchdule,
 }: {
+  id: string | undefined;
   isShowDescDoctor: boolean;
   dataSchdule?: GetScheduleData;
 }) => {
-  const { id } = useParams();
+  console.log('dataSchdule:', dataSchdule);
   const [detailDoctor, setDetailDoctor] = useState<DetailInfoDoctor>(initialValue);
   const { language } = useAppSelector((state) => state.lang);
 
@@ -30,10 +29,7 @@ const ProfileDoctor = ({
 
   const renderTimeBooking = (dataTime: GetScheduleData | undefined): ReactNode => {
     if (dataTime && !_.isEmpty(dataTime)) {
-      const date =
-        language === 'vi'
-          ? capitalize(dayjs(new Date(dataTime.date)).locale('vi').format('dddd - DD/MM/YYYY'))
-          : dayjs(new Date(dataTime.date)).format('dddd - DD/MM/YYYY');
+      const date = CommonUtils.formatDate(dataTime.date, language);
 
       const time =
         language === 'vi' ? dataTime.timeTypeData.valueVi : dataTime.timeTypeData.valueEn;
@@ -73,12 +69,12 @@ const ProfileDoctor = ({
           </div>
         </div>
       </div>
-      <div className="price">
+      {/* <div className="price">
         <FormattedMessage id="patient.extra-infor-doctor.price" />{' '}
         {language === 'vi'
           ? CommonUtils.formatIntoVND(detailDoctor.Doctor_Infor.priceTypeData.valueVi)
           : CommonUtils.formatIntoUSD(detailDoctor.Doctor_Infor.priceTypeData.valueEn)}
-      </div>
+      </div> */}
     </>
   );
 };

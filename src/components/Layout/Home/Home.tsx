@@ -13,16 +13,70 @@ import { Banner } from './Banner';
 import { About } from './Section/About';
 import { Handbook } from './Section/Handbook';
 import { OutstandingDoctor } from './Section/Outstanding';
-import { doctorApi, doctorData } from '@/services/doctorService';
+import { GetSpecialty, doctorApi, doctorData } from '@/services/doctorService';
 import { useAppSelector } from '@/utils/useGetData';
+
+export interface HomeSection {
+  id: number;
+  img: string;
+  title: string;
+}
 
 const Home = () => {
   const [doctor, setDoctor] = useState<doctorData[]>([]);
+  const [specialty, setSpecialty] = useState<HomeSection[]>([]);
+
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
 
   useEffect(() => {
     (async () => {
-      const response = await doctorApi.getAllDoctor();
-      setDoctor(response.data);
+      const resDoctor = await doctorApi.getAllDoctor();
+      if (resDoctor.code === 200) {
+        setDoctor(resDoctor.data);
+      }
+      const resSpecialty = await doctorApi.getAllSpecialty();
+      if (resSpecialty.code === 200) {
+        const resSpecialtyData = resSpecialty.data.map((item) => {
+          return {
+            id: item.id,
+            img: item.image,
+            title: item.name,
+          };
+        });
+        setSpecialty(resSpecialtyData);
+      }
     })();
   }, []);
 
@@ -33,8 +87,9 @@ const Home = () => {
       <HomeSection
         heading={<FormattedMessage id="home.section.specialty" />}
         buttonText={<FormattedMessage id="home.section.button" />}
-        data={SpecialtyData}
+        data={specialty}
         backgroundSize="cover"
+        settings={settings}
       />
       <HomeSection
         backgroundColor="#f5f5f5"
@@ -42,12 +97,14 @@ const Home = () => {
         buttonText={<FormattedMessage id="home.section.button" />}
         data={MedicalData}
         backgroundSize="contain"
+        settings={settings}
       />
 
       <OutstandingDoctor
         heading={<FormattedMessage id="home.section.doctor" />}
         buttonText={<FormattedMessage id="home.section.button" />}
         data={doctor}
+        settings={settings}
       />
 
       <Handbook

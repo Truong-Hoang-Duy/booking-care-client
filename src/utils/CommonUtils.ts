@@ -1,5 +1,8 @@
+import dayjs from 'dayjs';
+import { capitalize } from 'lodash';
+
 class CommonUtils {
-  static getBase64(file: File) {
+  static getBase64(file: File): any {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
@@ -31,6 +34,12 @@ class CommonUtils {
   static validatePhoneNumber(phone: string) {
     const regexPhoneNumber = /(84|0[3|5|7|8|9])+([0-9]{8})\b/g;
     return regexPhoneNumber.test(phone);
+  }
+
+  static formatDate(date: number, language: string) {
+    return language === 'vi'
+      ? capitalize(dayjs(new Date(date)).locale('vi').format('dddd - DD/MM/YYYY'))
+      : dayjs(new Date(date)).format('dddd - DD/MM/YYYY');
   }
 }
 

@@ -35,6 +35,8 @@ export const initialValue = {
       valueEn: '',
       valueVi: '',
     },
+    specialtyId: 0,
+    clinicId: 0,
   },
 };
 
@@ -47,6 +49,10 @@ export const initialValueModal = {
     valueEn: '',
     valueVi: '',
   },
+  doctorData: {
+    firstName: '',
+    lastName: '',
+  },
 };
 
 export const initialValuePatient = {
@@ -56,4 +62,28 @@ export const initialValuePatient = {
   address: '',
   phonenumber: '',
   gender: '',
+};
+
+export const initDoctorInfor = {
+  doctorId: 0,
+  specialtyId: 0,
+  clinicId: 0,
+  priceId: '',
+  provinceId: '',
+  paymentId: '',
+  addressClinic: '',
+  nameClinic: '',
+  note: '',
+  paymentTypeData: {
+    valueEn: '',
+    valueVi: '',
+  },
+  priceTypeData: {
+    valueEn: '',
+    valueVi: '',
+  },
+  provinceTypeData: {
+    valueEn: '',
+    valueVi: '',
+  },
 };

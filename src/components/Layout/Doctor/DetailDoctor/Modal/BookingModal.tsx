@@ -1,3 +1,12 @@
+import { Allcode, patientApi, userApi } from '@/services';
+import { GetScheduleData, ValueAllCode } from '@/services/doctorService';
+import CommonUtils from '@/utils/CommonUtils';
+import { useAppSelector } from '@/utils/useGetData';
+import axios from 'axios';
+import _ from 'lodash';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { FormattedMessage } from 'react-intl';
+import { toast } from 'react-toastify';
 import {
   Button,
   Form,
@@ -9,18 +18,10 @@ import {
   ModalFooter,
   ModalHeader,
 } from 'reactstrap';
-import './BookingModal.scss';
-import { GetScheduleData } from '@/services/doctorService';
-import { FormattedMessage } from 'react-intl';
 import ProfileDoctor from '../ProfileDoctor';
-import { useAppSelector } from '@/utils/useGetData';
-import { ChangeEvent, useEffect, useState } from 'react';
 import { initialValuePatient } from '../constants';
-import { Allcode, patientApi, userApi } from '@/services';
-import _ from 'lodash';
-import CommonUtils from '@/utils/CommonUtils';
-import { toast } from 'react-toastify';
-import axios from 'axios';
+import './BookingModal.scss';
+import { useParams } from 'react-router-dom';
 
 interface PatientData {
   email: string;
@@ -36,7 +37,10 @@ const BookingModal = (props: {
   modal: boolean;
   toggle: () => void;
 }) => {
+  const { id } = useParams();
+
   const { dataSchdule, modal, toggle } = props;
+  const [isLoading, setIsLoading] = useState(false);
 
   const { data } = useAppSelector((state) => state.auth);
   const { language } = useAppSelector((state) => state.lang);
@@ -69,20 +73,31 @@ const BookingModal = (props: {
     let isValid = true;
     for (const key in patient) {
       const value = patient[key as keyof PatientData];
-      console.log('key: ', key, 'value: ', value);
       if (_.isEmpty(value)) {
         isValid = false;
       }
       if (key === 'phonenumber' && !CommonUtils.validatePhoneNumber(value)) {
+        toast.error('Vui lòng nhập đúng số điện thoại');
         isValid = false;
       }
     }
     return isValid;
   };
 
+  const renderTimeBooking = (dataTime: number, timeType: ValueAllCode) => {
+    const date = CommonUtils.formatDate(dataTime, language);
+    const time = language === 'vi' ? timeType.valueVi : timeType.valueEn;
+    return `${time}, ${date}`;
+  };
+
+  const renderName = (firstName: string, lastName: string) => {
+    const name = language === 'vi' ? `${lastName} ${firstName}` : `${firstName} ${lastName}`;
+    return name;
+  };
+
   const handleCreateBook = async () => {
     const { email, firstName, lastName, address, phonenumber, gender } = patient;
-    const { doctorId, date, timeType } = dataSchdule;
+    const { doctorId, date, timeType, timeTypeData, doctorData } = dataSchdule;
     const isValid = checkValidateInput();
     if (isValid) {
       const postData = {
@@ -95,10 +110,15 @@ const BookingModal = (props: {
         doctorId,
         date,
         timeType,
+        language,
+        timeString: renderTimeBooking(date, timeTypeData),
+        doctorName: renderName(doctorData.firstName, doctorData.lastName),
       };
       try {
+        setIsLoading(true);
         const response = await patientApi.postPatientBookDoctor(postData);
         if (response && response.code === 200) {
+          setIsLoading(false);
           toast.success(response.message);
           toggle();
         }
@@ -122,7 +142,7 @@ const BookingModal = (props: {
       <ModalBody>
         <Form className="booking-modal">
           <div className="doctor-infor">
-            <ProfileDoctor isShowDescDoctor={false} dataSchdule={dataSchdule} />
+            <ProfileDoctor id={id} isShowDescDoctor={false} dataSchdule={dataSchdule} />
           </div>
 
           <div className="d-flex gap-4">
@@ -234,8 +254,16 @@ const BookingModal = (props: {
         </Form>
       </ModalBody>
       <ModalFooter>
-        <Button color="primary" onClick={handleCreateBook}>
-          <FormattedMessage id="form.buttonSave" />
+        <Button color="primary" onClick={handleCreateBook} disabled={isLoading}>
+          {isLoading ? (
+            <div className="d-flex justify-content-center">
+              <div className="spinner-border spinner-border-md text-light" role="status">
+                <span className="sr-only">Loading...</span>
+              </div>
+            </div>
+          ) : (
+            <FormattedMessage id="form.buttonSave" />
+          )}
         </Button>
         <Button color="danger" onClick={toggle}>
           <FormattedMessage id="form.buttonCancel" />

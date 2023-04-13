@@ -69,7 +69,6 @@ const ModalUser = (props: {
     const id = e.target.id as keyof CreateData;
     if (id === 'avatar') {
       const file = e.target.files?.item(0);
-      console.log('handleChangeInput ~ file:', file);
       if (file) {
         const base64: any = await CommonUtils.getBase64(file);
         newInfo[id] = base64;

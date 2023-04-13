@@ -1,12 +1,25 @@
-import { DoctorInfor } from '@/services/doctorService';
+import { DoctorInfor, doctorApi } from '@/services/doctorService';
 import CommonUtils from '@/utils/CommonUtils';
 import { useAppSelector } from '@/utils/useGetData';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
+import './Styles/DoctorExtraInforStyle.scss';
+import { initDoctorInfor } from './constants';
 
-const DoctorExtraInfor = ({ doctorInfo }: { doctorInfo: DoctorInfor }) => {
+const DoctorExtraInfor = ({ id }: { id: string | undefined }) => {
   const [isShowDetail, setIsShowDetail] = useState(false);
   const { language } = useAppSelector((state) => state.lang);
+
+  const [doctorInfo, setDoctorInfo] = useState<DoctorInfor>(initDoctorInfor);
+
+  useEffect(() => {
+    (async () => {
+      if (id) {
+        const { data } = await doctorApi.getDetailInfoDoctor(id);
+        setDoctorInfo(data.Doctor_Infor);
+      }
+    })();
+  }, []);
 
   return (
     <div className="doctor-extra-infor-container">
@@ -14,8 +27,8 @@ const DoctorExtraInfor = ({ doctorInfo }: { doctorInfo: DoctorInfor }) => {
         <div className="title">
           <FormattedMessage id="patient.extra-infor-doctor.text-address" />
         </div>
-        <div className="name-clinic">{doctorInfo.nameClinic}</div>
-        <div className="address-clinic">{doctorInfo.addressClinic}</div>
+        <div className="name-clinic">{doctorInfo?.nameClinic}</div>
+        <div className="address-clinic">{doctorInfo?.addressClinic}</div>
       </div>
       <div className="content-down">
         {!isShowDetail ? (
@@ -26,8 +39,8 @@ const DoctorExtraInfor = ({ doctorInfo }: { doctorInfo: DoctorInfor }) => {
             </span>
             <span className="price">
               {language === 'vi'
-                ? CommonUtils.formatIntoVND(doctorInfo.priceTypeData.valueVi)
-                : CommonUtils.formatIntoUSD(doctorInfo.priceTypeData.valueEn)}
+                ? CommonUtils.formatIntoVND(doctorInfo?.priceTypeData.valueVi)
+                : CommonUtils.formatIntoUSD(doctorInfo?.priceTypeData.valueEn)}
               ,
             </span>
             <span className="show-detail px-2" onClick={() => setIsShowDetail(!isShowDetail)}>
@@ -51,16 +64,16 @@ const DoctorExtraInfor = ({ doctorInfo }: { doctorInfo: DoctorInfor }) => {
               </div>
               <span className="right">
                 {language === 'vi'
-                  ? CommonUtils.formatIntoVND(doctorInfo.priceTypeData.valueVi)
-                  : CommonUtils.formatIntoUSD(doctorInfo.priceTypeData.valueEn)}
+                  ? CommonUtils.formatIntoVND(doctorInfo?.priceTypeData.valueVi)
+                  : CommonUtils.formatIntoUSD(doctorInfo?.priceTypeData.valueEn)}
               </span>
             </div>
 
             <div className="payment">
               <FormattedMessage id="patient.extra-infor-doctor.payment" />
               {language === 'vi'
-                ? doctorInfo.paymentTypeData.valueVi
-                : doctorInfo.paymentTypeData.valueEn}
+                ? doctorInfo?.paymentTypeData.valueVi
+                : doctorInfo?.paymentTypeData.valueEn}
             </div>
 
             <div className="show-detail" onClick={() => setIsShowDetail(!isShowDetail)}>

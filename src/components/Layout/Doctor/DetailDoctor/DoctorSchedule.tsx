@@ -9,9 +9,10 @@ import { GetScheduleData, doctorApi } from '@/services/doctorService';
 import { FormattedMessage } from 'react-intl';
 import BookingModal from './Modal/BookingModal';
 import { initialValueModal } from './constants';
+import './Styles/DoctorScheduleStyle.scss';
 
-const DoctorSchedule = () => {
-  const [modal, setModal] = useState(true);
+const DoctorSchedule = ({ id }: { id: string | undefined }) => {
+  const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
   const [dataModal, setDataModal] = useState<GetScheduleData>(initialValueModal);
 
@@ -23,8 +24,6 @@ const DoctorSchedule = () => {
   ]);
   const { language } = useAppSelector((state) => state.lang);
   const [allAvailableTime, setAllAvailableTime] = useState<GetScheduleData[]>([]);
-
-  const { id } = useParams();
 
   const generateDate = () => {
     const arrDate = [];

@@ -10,17 +10,10 @@ interface OutstandingDoctorProps {
   heading: React.ReactNode;
   buttonText: React.ReactNode;
   data: doctorData[];
+  settings: any;
 }
 
-const OutstandingDoctor = ({ heading, buttonText, data }: OutstandingDoctorProps) => {
-  const settings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-  };
-
+const OutstandingDoctor = ({ heading, buttonText, data, settings }: OutstandingDoctorProps) => {
   const { language } = useAppSelector((state) => state.lang);
 
   return (

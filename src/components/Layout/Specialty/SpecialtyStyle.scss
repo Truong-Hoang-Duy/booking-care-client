@@ -1,0 +1,32 @@
+.detail-specialty {
+  background-color: #f9f9f9;
+  .description-specialty {
+    border: 1px solid red;
+    height: 200px;
+  }
+  .doctor-box {
+    padding: 20px 0;
+    width: 100%;
+    display: flex;
+    min-height: 300px;
+    margin: 20px 0;
+    background-color: #fff;
+    box-shadow: 0 1px 6px rgba(32, 33, 36, 0.28);
+    border-radius: 8px;
+    .content-left {
+      padding-left: 20px;
+      width: 50%;
+    }
+    .content-right {
+      width: 50%;
+    }
+  }
+  .doctor-box:last-child {
+    margin-bottom: 0;
+  }
+
+  .frequently-questions {
+    background-color: #f9f9f9;
+    padding: 15px;
+  }
+}

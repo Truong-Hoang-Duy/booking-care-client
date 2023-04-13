@@ -2,7 +2,7 @@ import instance from '@/api/axios';
 import { ListOneResponse, ListResponse } from '@/api/statusCodes';
 import { BASE_URL } from '@/shared/configs/config';
 
-interface ValueAllCode {
+export interface ValueAllCode {
   valueEn: string;
   valueVi: string;
 }
@@ -42,6 +42,8 @@ export interface DoctorInfor {
   priceTypeData: ValueAllCode;
   provinceId: string;
   provinceTypeData: ValueAllCode;
+  clinicId: number;
+  specialtyId: number;
 }
 
 export interface DetailInfoDoctor {
@@ -76,6 +78,25 @@ export interface GetScheduleData {
   date: number;
   timeType: string;
   timeTypeData: ValueAllCode;
+  doctorData: {
+    firstName: string;
+    lastName: string;
+  };
+}
+
+export interface CreateSpecialty {
+  name: string;
+  imageBase64: string;
+  contentHTML: string;
+  contentMarkdown: string;
+}
+
+export interface GetSpecialty {
+  id: number;
+  name: string;
+  image: string;
+  contentHTML: string;
+  contentMarkdown: string;
 }
 
 export const doctorApi = {
@@ -97,6 +118,14 @@ export const doctorApi = {
   },
   getSchedule(doctorId: number, date: number): Promise<ListResponse<GetScheduleData>> {
     const url = `${BASE_URL}/schedule-by-date/get-all?doctorId=${doctorId}&date=${date}`;
+    return instance.get(url);
+  },
+  createSpecialty(data: CreateSpecialty): Promise<ListResponse<[]>> {
+    const url = `${BASE_URL}/specialty/create`;
+    return instance.post(url, data);
+  },
+  getAllSpecialty(): Promise<ListResponse<GetSpecialty>> {
+    const url = `${BASE_URL}/specialty/get-all`;
     return instance.get(url);
   },
 };

@@ -2,14 +2,16 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './HomeSectionStyle.scss';
+import { Link } from 'react-router-dom';
 
 interface HomeSectionProps {
+  settings: any;
   backgroundColor?: string;
   heading: React.ReactNode;
   buttonText: React.ReactNode;
   backgroundSize: string;
   data: {
-    id: string;
+    id: string | number;
     img: string;
     title: string;
   }[];
@@ -21,40 +23,8 @@ const HomeSection = ({
   buttonText,
   data,
   backgroundSize,
+  settings,
 }: HomeSectionProps) => {
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-          infinite: true,
-          dots: true,
-        },
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          initialSlide: 2,
-        },
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
-    ],
-  };
   return (
     <div className="home-section" style={{ backgroundColor: backgroundColor }}>
       <div className="section-container">
@@ -66,13 +36,13 @@ const HomeSection = ({
         <div className="body">
           <Slider {...settings}>
             {data.map((item) => (
-              <a key={item.id} href="" className="section-img-link">
+              <Link to={`detail-specialty/${item.id}`} key={item.id} className="section-img-link">
                 <div
                   className="section-img"
                   style={{ backgroundImage: `url(${item.img})`, backgroundSize }}
                 ></div>
-                <div>{item.title}</div>
-              </a>
+                <div className="mt-2">{item.title}</div>
+              </Link>
             ))}
           </Slider>
         </div>

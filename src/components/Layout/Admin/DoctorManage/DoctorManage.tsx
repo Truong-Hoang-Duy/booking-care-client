@@ -24,6 +24,9 @@ const DoctorManage = () => {
   const [listPrice, setListPrice] = useState<ListOption[]>([]);
   const [listPayment, setListPayment] = useState<ListOption[]>([]);
   const [listProvince, setListProvince] = useState<ListOption[]>([]);
+  const [listSpecialty, setListSpecialty] = useState<ListOption[]>([]);
+  const [listClinic, setListClinic] = useState<ListOption[]>([]);
+
   const [nameClinic, setNameClinic] = useState<string>('');
   const [addressClinic, setAddressClinic] = useState<string>('');
   const [note, setNote] = useState<string>('');
@@ -32,17 +35,26 @@ const DoctorManage = () => {
   const [selectedPrice, setSelectedPrice] = useState<ListOption | null>(null);
   const [selectedPayment, setSelectedPayment] = useState<ListOption | null>(null);
   const [selectedProvince, setSelectedProvince] = useState<ListOption | null>(null);
+  const [selectedSpecialty, setSelectedSpecialty] = useState<ListOption | null>(null);
+  const [selectedClinic, setSelectedClinic] = useState<ListOption | null>(null);
 
   const [description, setDescription] = useState('');
   const [contentHTML, setContentHTML] = useState('');
   const [contentMarkdown, setContentMarkdown] = useState('');
 
   useEffect(() => {
+    setSelectedDoctor(null);
+    setSelectedPrice(null);
+    setSelectedPayment(null);
+    setSelectedProvince(null);
+    setSelectedSpecialty(null);
+    setSelectedClinic(null);
     (async () => {
       const resDoctor = await doctorApi.getAllDoctor();
       const resPrice = await userApi.getAllcode('PRICE');
       const resPayment = await userApi.getAllcode('PAYMENT');
       const resProvince = await userApi.getAllcode('PROVINCE');
+      const resSpecialty = await doctorApi.getAllSpecialty();
       if (resDoctor.code === 200) {
         const doctor = ConvertIntoSelect('user', resDoctor.data, language);
         setListDoctor(doctor);
@@ -58,6 +70,13 @@ const DoctorManage = () => {
       if (resProvince.code === 200) {
         const province = ConvertIntoSelect('orther', resProvince.data, language);
         setListProvince(province);
+      }
+      if (resSpecialty.code === 200) {
+        const specialty = resSpecialty.data.map((item) => ({
+          value: item.id,
+          label: item.name,
+        }));
+        setListSpecialty(specialty);
       }
     })();
   }, [language]);
@@ -82,6 +101,9 @@ const DoctorManage = () => {
       case 'province':
         setSelectedProvince(option);
         break;
+
+      case 'specialty':
+        setSelectedSpecialty(option);
     }
 
     const response = await doctorApi.getDetailInfoDoctor(option?.value);
@@ -98,6 +120,11 @@ const DoctorManage = () => {
       const findPayment: any = listPayment.find((item) => item.value === Doctor_Infor.paymentId);
       setSelectedPayment(findPayment);
 
+      const findSpecialty: any = listSpecialty.find(
+        (item) => item.value === Doctor_Infor.specialtyId
+      );
+      setSelectedSpecialty(findSpecialty);
+
       setNameClinic(Doctor_Infor.nameClinic);
       setAddressClinic(Doctor_Infor.addressClinic);
       setNote(Doctor_Infor.note);
@@ -107,6 +134,10 @@ const DoctorManage = () => {
       setIsDetailDoctor(true);
     } else {
       setSelectedPrice(null);
+      setSelectedPayment(null);
+      setSelectedProvince(null);
+      setSelectedSpecialty(null);
+      setSelectedClinic(null);
       setNameClinic('');
       setAddressClinic('');
       setNote('');
@@ -120,6 +151,7 @@ const DoctorManage = () => {
   const handleSaveInfo = () => {
     const data = {
       doctorId: Number(selectedDoctor?.value),
+      specialtyId: Number(selectedSpecialty?.value),
       price: selectedPrice?.value,
       payment: selectedPayment?.value,
       province: selectedProvince?.value,
@@ -245,6 +277,38 @@ const DoctorManage = () => {
                   ? 'Vui lòng nhập địa chỉ phòng khám'
                   : 'Please enter clinic address'
               }
+            />
+          </div>
+        </div>
+
+        <div className="d-flex gap-4">
+          <div className="w-100 form-group">
+            <label className="mb-2" htmlFor="specialty">
+              <FormattedMessage id="menu.doctor.manage-doctor.specialty" />
+            </label>
+            <Select
+              value={selectedSpecialty}
+              onChange={handleChangeSelect}
+              options={listSpecialty}
+              placeholder={
+                <FormattedMessage id="menu.doctor.manage-doctor.placeholder.select-specialty" />
+              }
+              name="specialty"
+            />
+          </div>
+
+          <div className="w-100 form-group">
+            <label className="mb-2" htmlFor="clinic">
+              <FormattedMessage id="menu.doctor.manage-doctor.Clinic" />
+            </label>
+            <Select
+              value={selectedClinic}
+              onChange={handleChangeSelect}
+              options={listClinic}
+              placeholder={
+                <FormattedMessage id="menu.doctor.manage-doctor.placeholder.select-clinic" />
+              }
+              name="clinic"
             />
           </div>
         </div>

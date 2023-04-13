@@ -21,6 +21,14 @@ export interface PostPatientBook {
   doctorId: number;
   date: number;
   timeType: string;
+  language: string;
+  timeString: string;
+  doctorName: string;
+}
+
+interface VerifyBookDoctor {
+  confirmTime: string;
+  doctorId: string;
 }
 
 export const patientApi = {
@@ -30,6 +38,10 @@ export const patientApi = {
   },
   postPatientBookDoctor(data: PostPatientBook): Promise<ListResponse<[]>> {
     const url = `${BASE_URL}/patient-book-doctor/create`;
+    return instance.post(url, data);
+  },
+  postVerifyBookDoctor(data: VerifyBookDoctor): Promise<ListResponse<[]>> {
+    const url = `${BASE_URL}/verify-book-doctor/create`;
     return instance.post(url, data);
   },
 };

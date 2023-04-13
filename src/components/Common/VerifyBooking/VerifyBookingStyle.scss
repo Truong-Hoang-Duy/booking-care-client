@@ -1,0 +1,50 @@
+.verify-booking {
+  background-color: #5394f8;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .box {
+    max-width: 1000px;
+    margin: 0 20px;
+    height: 500px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 1px solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &.success {
+      background-color: #5394f8;
+    }
+    &.error {
+      background-color: red;
+    }
+    i {
+      color: white;
+      font-size: 50px;
+    }
+  }
+  .message {
+    margin-top: 20px;
+    font-size: 20px;
+    font-weight: 500;
+  }
+}
+
+@media screen and (max-width: 564px) {
+  .message {
+    font-size: 16px !important;
+  }
+}
