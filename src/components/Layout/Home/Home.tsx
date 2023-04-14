@@ -25,6 +25,7 @@ export interface HomeSection {
 const Home = () => {
   const [doctor, setDoctor] = useState<doctorData[]>([]);
   const [specialty, setSpecialty] = useState<HomeSection[]>([]);
+  const [clinic, setClinic] = useState<HomeSection[]>([]);
 
   const settings = {
     dots: false,
@@ -77,6 +78,18 @@ const Home = () => {
         });
         setSpecialty(resSpecialtyData);
       }
+
+      const resClinic = await doctorApi.getAllClinic();
+      if (resClinic.code === 200) {
+        const resClinicData = resClinic.data.map((item) => {
+          return {
+            id: item.id,
+            img: item.image,
+            title: item.name,
+          };
+        });
+        setClinic(resClinicData);
+      }
     })();
   }, []);
 
@@ -90,14 +103,16 @@ const Home = () => {
         data={specialty}
         backgroundSize="cover"
         settings={settings}
+        option={'specialty'}
       />
       <HomeSection
         backgroundColor="#f5f5f5"
         heading={<FormattedMessage id="home.section.outstanding" />}
         buttonText={<FormattedMessage id="home.section.button" />}
-        data={MedicalData}
+        data={clinic}
         backgroundSize="contain"
         settings={settings}
+        option={'clinic'}
       />
 
       <OutstandingDoctor

@@ -49,12 +49,18 @@ const DoctorManage = () => {
     setSelectedProvince(null);
     setSelectedSpecialty(null);
     setSelectedClinic(null);
+    setAddressClinic('');
+    setNote('');
+    setNameClinic('');
+    setDescription('');
+    setContentMarkdown('');
     (async () => {
       const resDoctor = await doctorApi.getAllDoctor();
       const resPrice = await userApi.getAllcode('PRICE');
       const resPayment = await userApi.getAllcode('PAYMENT');
       const resProvince = await userApi.getAllcode('PROVINCE');
       const resSpecialty = await doctorApi.getAllSpecialty();
+      const resClinic = await doctorApi.getAllClinic();
       if (resDoctor.code === 200) {
         const doctor = ConvertIntoSelect('user', resDoctor.data, language);
         setListDoctor(doctor);
@@ -72,11 +78,19 @@ const DoctorManage = () => {
         setListProvince(province);
       }
       if (resSpecialty.code === 200) {
-        const specialty = resSpecialty.data.map((item) => ({
+        const specialtyData = resSpecialty.data.map((item) => ({
           value: item.id,
           label: item.name,
         }));
-        setListSpecialty(specialty);
+        setListSpecialty(specialtyData);
+      }
+
+      if (resClinic.code === 200) {
+        const clinicData = resClinic.data.map((item) => ({
+          value: item.id,
+          label: item.name,
+        }));
+        setListClinic(clinicData);
       }
     })();
   }, [language]);
@@ -88,6 +102,58 @@ const DoctorManage = () => {
     switch (actionMeta.name) {
       case 'doctor':
         setSelectedDoctor(option);
+        const response = await doctorApi.getDetailInfoDoctor(option?.value);
+        if (
+          response &&
+          response.code === 200 &&
+          response.data.Markdown &&
+          response.data.Doctor_Infor
+        ) {
+          const { data } = response;
+          const { Doctor_Infor, Markdown } = data;
+
+          const findPrice: any = listPrice.find((item) => item.value === Doctor_Infor.priceId);
+          setSelectedPrice(findPrice || null);
+
+          const findProvince: any = listProvince.find(
+            (item) => item.value === Doctor_Infor.provinceId
+          );
+          setSelectedProvince(findProvince || null);
+
+          const findPayment: any = listPayment.find(
+            (item) => item.value === Doctor_Infor.paymentId
+          );
+          setSelectedPayment(findPayment || null);
+
+          const findSpecialty: any = listSpecialty.find(
+            (item) => item.value === Doctor_Infor.specialtyId
+          );
+          setSelectedSpecialty(findSpecialty || null);
+
+          const findClinic: any = listClinic.find((item) => item.value === Doctor_Infor.clinicId);
+          setSelectedClinic(findClinic || null);
+
+          setNameClinic(Doctor_Infor.nameClinic);
+          setAddressClinic(Doctor_Infor.addressClinic);
+          setNote(Doctor_Infor.note);
+          setDescription(Markdown.description);
+          setContentHTML(Markdown.contentHTML);
+          setContentMarkdown(Markdown.contentMarkdown);
+          setIsDetailDoctor(true);
+        } else {
+          setSelectedPrice(null);
+          setSelectedPayment(null);
+          setSelectedProvince(null);
+          setSelectedSpecialty(null);
+          setSelectedClinic(null);
+          setNameClinic('');
+          setAddressClinic('');
+          setNote('');
+          setDescription('');
+          setContentHTML('');
+          setContentMarkdown('');
+          setIsDetailDoctor(false);
+        }
         break;
 
       case 'price':
@@ -102,49 +168,13 @@ const DoctorManage = () => {
         setSelectedProvince(option);
         break;
 
-      case 'specialty':
+      case 'select-specialty':
         setSelectedSpecialty(option);
-    }
+        break;
 
-    const response = await doctorApi.getDetailInfoDoctor(option?.value);
-    if (response && response.code === 200 && response.data.Markdown && response.data.Doctor_Infor) {
-      const { data } = response;
-      const { Doctor_Infor, Markdown } = data;
-
-      const findPrice: any = listPrice.find((item) => item.value === Doctor_Infor.priceId);
-      setSelectedPrice(findPrice);
-
-      const findProvince: any = listProvince.find((item) => item.value === Doctor_Infor.provinceId);
-      setSelectedProvince(findProvince);
-
-      const findPayment: any = listPayment.find((item) => item.value === Doctor_Infor.paymentId);
-      setSelectedPayment(findPayment);
-
-      const findSpecialty: any = listSpecialty.find(
-        (item) => item.value === Doctor_Infor.specialtyId
-      );
-      setSelectedSpecialty(findSpecialty);
-
-      setNameClinic(Doctor_Infor.nameClinic);
-      setAddressClinic(Doctor_Infor.addressClinic);
-      setNote(Doctor_Infor.note);
-      setDescription(Markdown.description);
-      setContentHTML(Markdown.contentHTML);
-      setContentMarkdown(Markdown.contentMarkdown);
-      setIsDetailDoctor(true);
-    } else {
-      setSelectedPrice(null);
-      setSelectedPayment(null);
-      setSelectedProvince(null);
-      setSelectedSpecialty(null);
-      setSelectedClinic(null);
-      setNameClinic('');
-      setAddressClinic('');
-      setNote('');
-      setDescription('');
-      setContentHTML('');
-      setContentMarkdown('');
-      setIsDetailDoctor(false);
+      case 'clinic':
+        setSelectedClinic(option);
+        break;
     }
   };
 
@@ -152,6 +182,7 @@ const DoctorManage = () => {
     const data = {
       doctorId: Number(selectedDoctor?.value),
       specialtyId: Number(selectedSpecialty?.value),
+      clinicId: Number(selectedClinic?.value),
       price: selectedPrice?.value,
       payment: selectedPayment?.value,
       province: selectedProvince?.value,
@@ -169,7 +200,9 @@ const DoctorManage = () => {
           setSelectedDoctor(null);
           setSelectedPrice(null);
           setSelectedPayment(null);
+          setSelectedSpecialty(null);
           setSelectedProvince(null);
+          setSelectedClinic(null);
           setNameClinic('');
           setAddressClinic('');
           setNote('');
@@ -283,7 +316,7 @@ const DoctorManage = () => {
 
         <div className="d-flex gap-4">
           <div className="w-100 form-group">
-            <label className="mb-2" htmlFor="specialty">
+            <label className="mb-2" htmlFor="select-specialty">
               <FormattedMessage id="menu.doctor.manage-doctor.specialty" />
             </label>
             <Select
@@ -293,7 +326,7 @@ const DoctorManage = () => {
               placeholder={
                 <FormattedMessage id="menu.doctor.manage-doctor.placeholder.select-specialty" />
               }
-              name="specialty"
+              name="select-specialty"
             />
           </div>
 

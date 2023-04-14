@@ -1,8 +1,19 @@
 .profile-doctor {
   display: flex;
   gap: 15px;
-  align-items: center;
   width: 100%;
+  .addition {
+    text-align: center;
+    a {
+      text-decoration: none;
+      margin-top: 15px;
+      display: block;
+      color: #333;
+    }
+    a:hover {
+      color: #45c3d2;
+    }
+  }
   .avatar {
     width: 120px;
     height: 120px;

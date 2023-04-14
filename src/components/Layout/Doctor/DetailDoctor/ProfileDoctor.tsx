@@ -6,17 +6,19 @@ import { ReactNode, useEffect, useState } from 'react';
 import { FormattedMessage } from 'react-intl';
 import './Styles/ProfileDoctorStyle.scss';
 import { initialValue } from './constants';
+import { Link } from 'react-router-dom';
 
 const ProfileDoctor = ({
   id,
   isShowDescDoctor,
   dataSchdule,
+  isShowLink,
 }: {
   id: string | undefined;
   isShowDescDoctor: boolean;
   dataSchdule?: GetScheduleData;
+  isShowLink?: boolean;
 }) => {
-  console.log('dataSchdule:', dataSchdule);
   const [detailDoctor, setDetailDoctor] = useState<DetailInfoDoctor>(initialValue);
   const { language } = useAppSelector((state) => state.lang);
 
@@ -50,7 +52,21 @@ const ProfileDoctor = ({
   return (
     <>
       <div className="profile-doctor">
-        <div className="avatar" style={{ backgroundImage: `url(${detailDoctor.image})` }}></div>
+        <div className="addition">
+          <div className="avatar" style={{ backgroundImage: `url(${detailDoctor.image})` }}></div>
+          {isShowLink ? (
+            <Link to={`/detail-doctor/${id}`}>
+              <FormattedMessage id="home.section.button" />
+            </Link>
+          ) : (
+            <div className="price mt-2">
+              <FormattedMessage id="patient.extra-infor-doctor.price" />{' '}
+              {language === 'vi'
+                ? CommonUtils.formatIntoVND(detailDoctor.Doctor_Infor.priceTypeData.valueVi)
+                : CommonUtils.formatIntoUSD(detailDoctor.Doctor_Infor.priceTypeData.valueEn)}
+            </div>
+          )}
+        </div>
         <div className="information">
           <div className="title">
             {language === 'vi'
@@ -69,12 +85,6 @@ const ProfileDoctor = ({
           </div>
         </div>
       </div>
-      {/* <div className="price">
-        <FormattedMessage id="patient.extra-infor-doctor.price" />{' '}
-        {language === 'vi'
-          ? CommonUtils.formatIntoVND(detailDoctor.Doctor_Infor.priceTypeData.valueVi)
-          : CommonUtils.formatIntoUSD(detailDoctor.Doctor_Infor.priceTypeData.valueEn)}
-      </div> */}
     </>
   );
 };

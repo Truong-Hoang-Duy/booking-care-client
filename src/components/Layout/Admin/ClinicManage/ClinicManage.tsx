@@ -8,9 +8,10 @@ import { FormattedMessage } from 'react-intl';
 import { toast } from 'react-toastify';
 import { Button, FormGroup, Input, Label } from 'reactstrap';
 
-const SpecialtyManage = () => {
+const ClinicManage = () => {
   const { language } = useAppSelector((state) => state.lang);
   const [name, setName] = useState('');
+  const [address, setAddress] = useState('');
   const [imageBase64, setImageBase64] = useState('');
 
   const [contentHTML, setContentHTML] = useState('');
@@ -24,13 +25,14 @@ const SpecialtyManage = () => {
     }
   };
 
-  const handleSaveSpecialty = async () => {
-    const data = { name, imageBase64, contentHTML, contentMarkdown };
+  const handleSaveClinic = async () => {
+    const data = { name, address, imageBase64, contentHTML, contentMarkdown };
     try {
-      const response = await doctorApi.createSpecialty(data);
+      const response = await doctorApi.createClinic(data);
       if (response && response.code === 200) {
         toast.success(response.message);
         setName('');
+        setAddress('');
         setImageBase64('');
         setContentMarkdown('');
       }
@@ -40,33 +42,50 @@ const SpecialtyManage = () => {
       }
     }
   };
-
   return (
     <div className="manage-specialty container">
       <h1 className="title text-center mt-3 text-secondary fw-bold">
-        <FormattedMessage id="menu.doctor.manage-specialty.title" />
+        <FormattedMessage id="menu.doctor.manage-clinic.title" />
       </h1>
 
       <div className="d-flex gap-4">
         <FormGroup className="w-100">
-          <Label for="name-specialty">
-            <FormattedMessage id="menu.doctor.manage-specialty.name" />
+          <Label for="name-clinic">
+            <FormattedMessage id="menu.doctor.manage-clinic.name" />
           </Label>
           <Input
-            id="name-specialty"
-            name="name-specialty"
+            id="name-clinic"
+            name="name-clinic"
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder={language === 'vi' ? 'Vui lòng nhập chuyên khoa' : 'Please enter specialty'}
+            placeholder={language === 'vi' ? 'Vui lòng nhập phòng khám' : 'Please enter clinic'}
           />
         </FormGroup>
 
         <FormGroup className="w-100">
           <Label for="File">
-            <FormattedMessage id="menu.doctor.manage-specialty.image" />
+            <FormattedMessage id="menu.doctor.manage-clinic.image" />
           </Label>
           <Input id="File" name="file" type="file" onChange={(e) => handleChangeFile(e)} />
+        </FormGroup>
+      </div>
+
+      <div className="d-flex gap-4 mb-3">
+        <FormGroup className="w-100">
+          <Label for="address">
+            <FormattedMessage id="menu.doctor.manage-clinic.address" />
+          </Label>
+          <Input
+            id="address"
+            name="address"
+            type="text"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            placeholder={
+              language === 'vi' ? 'Vui lòng nhập địa chỉ phòng khám' : 'Please enter clinic address'
+            }
+          />
         </FormGroup>
       </div>
 
@@ -77,7 +96,7 @@ const SpecialtyManage = () => {
       />
 
       <div className="my-4 d-flex justify-content-end w-100">
-        <Button onClick={handleSaveSpecialty} color="primary">
+        <Button onClick={handleSaveClinic} color="primary">
           <FormattedMessage id="form.buttonSave" />
         </Button>
       </div>
@@ -85,4 +104,4 @@ const SpecialtyManage = () => {
   );
 };
 
-export default SpecialtyManage;
+export default ClinicManage;

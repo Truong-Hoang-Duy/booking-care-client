@@ -99,6 +99,43 @@ export interface GetSpecialty {
   contentMarkdown: string;
 }
 
+export interface GetOneSpecialty {
+  descriptionHTML: string;
+  descriptionMarkdown: string;
+  doctorSpecialty: {
+    doctorId: number;
+    provinceId: string;
+  }[];
+}
+
+export interface CreateClinic {
+  name: string;
+  address: string;
+  imageBase64: string;
+  contentHTML: string;
+  contentMarkdown: string;
+}
+
+export interface GetClinic {
+  id: number;
+  name: string;
+  image: string;
+  contentHTML: string;
+  contentMarkdown: string;
+}
+
+export interface GetOneClinic {
+  name: string;
+  address: string;
+  image: string;
+  descriptionHTML: string;
+  descriptionMarkdown: string;
+  doctorClinic: {
+    doctorId: number;
+    provinceId: string;
+  }[];
+}
+
 export const doctorApi = {
   getAllDoctor(limit = 10): Promise<ListResponse<doctorData>> {
     const url = `${BASE_URL}/doctor/get-all?limit=${limit}`;
@@ -126,6 +163,26 @@ export const doctorApi = {
   },
   getAllSpecialty(): Promise<ListResponse<GetSpecialty>> {
     const url = `${BASE_URL}/specialty/get-all`;
+    return instance.get(url);
+  },
+  getOneSpecialty(
+    id: string | undefined,
+    location: number | string | undefined
+  ): Promise<ListOneResponse<GetOneSpecialty>> {
+    const url = `${BASE_URL}/specialty/get-one?id=${id}&location=${location}`;
+    return instance.get(url);
+  },
+
+  createClinic(data: CreateClinic): Promise<ListResponse<[]>> {
+    const url = `${BASE_URL}/clinic/create`;
+    return instance.post(url, data);
+  },
+  getAllClinic(): Promise<ListResponse<GetClinic>> {
+    const url = `${BASE_URL}/clinic/get-all`;
+    return instance.get(url);
+  },
+  getOneClinic(id: string | undefined): Promise<ListOneResponse<GetOneClinic>> {
+    const url = `${BASE_URL}/clinic/get-one?id=${id}`;
     return instance.get(url);
   },
 };

@@ -31,6 +31,38 @@ interface VerifyBookDoctor {
   doctorId: string;
 }
 
+export interface ListPatientForDoctor {
+  id: number;
+  statusId: string;
+  doctorId: number;
+  patientId: number;
+  date: string;
+  timeType: string;
+  patientData: {
+    email: string;
+    firstName: string;
+    lastName: string;
+    address: string;
+    genderData: {
+      id: number;
+      valueEn: string;
+      valueVi: string;
+    };
+  };
+  timeTypePatient: {
+    valueEn: string;
+    valueVi: string;
+  };
+}
+
+export interface SendRemedy {
+  email: string;
+  imgBase64: string;
+  doctorId?: number;
+  patientId?: number;
+  timeType?: string;
+}
+
 export const patientApi = {
   getPatientByEmail(email: string | undefined): Promise<ListOneResponse<PatientData>> {
     const url = `${BASE_URL}/patient-by-email/get?email=${email}`;
@@ -42,6 +74,17 @@ export const patientApi = {
   },
   postVerifyBookDoctor(data: VerifyBookDoctor): Promise<ListResponse<[]>> {
     const url = `${BASE_URL}/verify-book-doctor/create`;
+    return instance.post(url, data);
+  },
+  getListPatientForDoctor(
+    doctorId: number | undefined,
+    date: number | undefined
+  ): Promise<ListResponse<ListPatientForDoctor>> {
+    const url = `${BASE_URL}/list-patient-for-doctor/get-all?date=${date}&doctorId=${doctorId}`;
+    return instance.get(url);
+  },
+  postSendRemedy(data: SendRemedy): Promise<ListResponse<ListPatientForDoctor>> {
+    const url = `${BASE_URL}/send-remedy`;
     return instance.post(url, data);
   },
 };

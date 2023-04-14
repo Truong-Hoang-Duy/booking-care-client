@@ -95,7 +95,8 @@
       "manage-specialty": "Specialty management",
       "handbook": "Handbook",
       "manage-handbook": "Handbook management",
-      "manage-schedule": "Manage Doctor's schedule"
+      "manage-schedule": "Manage Doctor's schedule",
+      "manage-patient": "Manage Doctor's patient"
     },
     "doctor": {
       "manage-schedule": {
@@ -128,6 +129,21 @@
           "select-specialty": "Please select a specialty",
           "select-clinic": "Please select a clinic"
         }
+      },
+      "manage-specialty": {
+        "title": "Specialty management",
+        "name": "Specialist name",
+        "image": "Professional photo"
+      },
+      "manage-clinic": {
+        "title": "Clinic management",
+        "name": "Clinic name",
+        "image": "Clinic photo",
+        "address": "Clinic address"
+      },
+      "manage-patient": {
+        "title": "Management of medical examination patients",
+        "save": "Save"
       }
     }
   },
@@ -145,7 +161,7 @@
     "position": "Position",
     "role": "Role",
     "image": "Image",
-    "buttonSave": "Add",
+    "buttonSave": "Save",
     "buttonEdit": "Edit",
     "buttonCancel": "Cancel"
   },

@@ -3,6 +3,7 @@ import { BASE_URL } from '../shared/configs/config';
 import { ListOneResponse, ListResponse } from '../api/statusCodes';
 
 export interface LoginData {
+  id: number;
   email: string;
   roleId: string;
   firstName: string;

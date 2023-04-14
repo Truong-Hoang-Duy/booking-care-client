@@ -93,6 +93,9 @@ export const doctorMenu: AdminNavigatorProps[] = [
   // Quản lý kế hoạch khám bệnh của bác sĩ
   {
     name: 'menu.admin.manage-user',
-    menus: [{ name: 'menu.admin.manage-schedule', link: '/system/doctor/manage-schedule' }],
+    menus: [
+      { name: 'menu.admin.manage-schedule', link: '/system/doctor/manage-schedule' },
+      { name: 'menu.admin.manage-patient', link: '/system/doctor/manage-patient' },
+    ],
   },
 ];

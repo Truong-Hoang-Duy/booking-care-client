@@ -3,13 +3,14 @@ import './Styles/DetailDoctorStyle.scss';
 import { useAppSelector } from '@/utils/useGetData';
 import dayjs from 'dayjs';
 import 'dayjs/locale/vi';
-import { capitalize } from 'lodash';
+import _, { capitalize } from 'lodash';
 import { useParams } from 'react-router-dom';
 import { GetScheduleData, doctorApi } from '@/services/doctorService';
 import { FormattedMessage } from 'react-intl';
 import BookingModal from './Modal/BookingModal';
 import { initialValueModal } from './constants';
 import './Styles/DoctorScheduleStyle.scss';
+import { toast } from 'react-toastify';
 
 const DoctorSchedule = ({ id }: { id: string | undefined }) => {
   const [modal, setModal] = useState(false);
@@ -82,6 +83,10 @@ const DoctorSchedule = ({ id }: { id: string | undefined }) => {
   const handleClickTime = (item: GetScheduleData) => {
     setDataModal(item);
     toggle();
+    const isLogin = _.isNull(localStorage.getItem('access_token'));
+    if (isLogin) {
+      toast.error('Vui lòng đăng nhập để đặt lịch hẹn');
+    }
   };
 
   return (
@@ -137,7 +142,7 @@ const DoctorSchedule = ({ id }: { id: string | undefined }) => {
         </div>
       </div>
 
-      <BookingModal dataSchdule={dataModal} modal={modal} toggle={toggle} />
+      <BookingModal id={id} dataSchdule={dataModal} modal={modal} toggle={toggle} />
     </>
   );
 };

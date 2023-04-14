@@ -95,7 +95,8 @@
       "manage-specialty": "Quản lý chuyên khoa",
       "handbook": "Cẩm nang",
       "manage-handbook": "Quản lý cẩm nang",
-      "manage-schedule": "Quản lý kế hoạch khám bệnh"
+      "manage-schedule": "Quản lý kế hoạch khám bệnh",
+      "manage-patient": "Quản lý bệnh nhân khám bệnh"
     },
     "doctor": {
       "manage-schedule": {
@@ -128,6 +129,21 @@
           "select-specialty": "Vui lòng chọn chuyên khoa",
           "select-clinic": "Vui lòng chọn phòng khám"
         }
+      },
+      "manage-specialty": {
+        "title": "Quản lý chuyên khoa",
+        "name": "Tên chuyên khoa",
+        "image": "Ảnh chuyên khoa"
+      },
+      "manage-clinic": {
+        "title": "Quản lý phòng khám",
+        "name": "Tên phòng khám",
+        "image": "Ảnh phòng khám",
+        "address": "Địa chỉ phòng khám"
+      },
+      "manage-patient": {
+        "title": "Quản lý bệnh nhân khám bệnh",
+        "save": "Lưu thông tin"
       }
     }
   },

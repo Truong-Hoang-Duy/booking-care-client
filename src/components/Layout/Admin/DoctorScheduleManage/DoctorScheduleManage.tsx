@@ -18,6 +18,7 @@ interface SelectOption {
 
 const DoctorScheduleManage = () => {
   const { language } = useAppSelector((state) => state.lang);
+  const { data } = useAppSelector((state) => state.auth);
 
   const [selectedOption, setSelectedOption] = useState<SelectOption | null>(null);
   const [options, setOptions] = useState<SelectOption[]>([]);

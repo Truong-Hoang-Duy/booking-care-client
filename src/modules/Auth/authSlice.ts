@@ -19,6 +19,7 @@ const initialState: AuthState = {
   isLoggedIn: false,
   isLoading: false,
   data: {
+    id: 0,
     firstName: '',
     email: '',
     roleId: '',

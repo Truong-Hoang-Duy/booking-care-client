@@ -36,10 +36,9 @@ const BookingModal = (props: {
   dataSchdule: GetScheduleData;
   modal: boolean;
   toggle: () => void;
+  id: string | undefined;
 }) => {
-  const { id } = useParams();
-
-  const { dataSchdule, modal, toggle } = props;
+  const { dataSchdule, modal, toggle, id } = props;
   const [isLoading, setIsLoading] = useState(false);
 
   const { data } = useAppSelector((state) => state.auth);
@@ -99,33 +98,39 @@ const BookingModal = (props: {
     const { email, firstName, lastName, address, phonenumber, gender } = patient;
     const { doctorId, date, timeType, timeTypeData, doctorData } = dataSchdule;
     const isValid = checkValidateInput();
+    const isLogin = _.isNull(localStorage.getItem('access_token'));
     if (isValid) {
-      const postData = {
-        email,
-        firstName,
-        lastName,
-        address,
-        phonenumber,
-        gender,
-        doctorId,
-        date,
-        timeType,
-        language,
-        timeString: renderTimeBooking(date, timeTypeData),
-        doctorName: renderName(doctorData.firstName, doctorData.lastName),
-      };
-      try {
-        setIsLoading(true);
-        const response = await patientApi.postPatientBookDoctor(postData);
-        if (response && response.code === 200) {
-          setIsLoading(false);
-          toast.success(response.message);
-          toggle();
+      if (!isLogin) {
+        const postData = {
+          email,
+          firstName,
+          lastName,
+          address,
+          phonenumber,
+          gender,
+          doctorId,
+          date,
+          timeType,
+          language,
+          timeString: renderTimeBooking(date, timeTypeData),
+          doctorName: renderName(doctorData.firstName, doctorData.lastName),
+        };
+        try {
+          setIsLoading(true);
+          const response = await patientApi.postPatientBookDoctor(postData);
+          if (response && response.code === 200) {
+            setIsLoading(false);
+            toast.success(response.message);
+            toggle();
+          }
+        } catch (error) {
+          if (axios.isAxiosError(error) && error.response) {
+            toast.error(error.response.data.message);
+            setIsLoading(false);
+          }
         }
-      } catch (error) {
-        if (axios.isAxiosError(error) && error.response) {
-          toast.error(error.response.data.message);
-        }
+      } else {
+        toast.error('Vui lòng đăng nhập để đặt lịch hẹn');
       }
     } else {
       language === 'vi'
@@ -145,7 +150,7 @@ const BookingModal = (props: {
             <ProfileDoctor id={id} isShowDescDoctor={false} dataSchdule={dataSchdule} />
           </div>
 
-          <div className="d-flex gap-4">
+          <div className="d-flex gap-4 mt-3">
             <FormGroup className="w-100">
               <Label for="email" className="fw-normal">
                 Email

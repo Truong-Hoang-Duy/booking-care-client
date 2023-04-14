@@ -15,6 +15,7 @@ interface HomeSectionProps {
     img: string;
     title: string;
   }[];
+  option: string;
 }
 
 const HomeSection = ({
@@ -24,6 +25,7 @@ const HomeSection = ({
   data,
   backgroundSize,
   settings,
+  option,
 }: HomeSectionProps) => {
   return (
     <div className="home-section" style={{ backgroundColor: backgroundColor }}>
@@ -36,7 +38,15 @@ const HomeSection = ({
         <div className="body">
           <Slider {...settings}>
             {data.map((item) => (
-              <Link to={`detail-specialty/${item.id}`} key={item.id} className="section-img-link">
+              <Link
+                to={
+                  option === 'specialty'
+                    ? `detail-specialty/${item.id}`
+                    : `detail-clinic/${item.id}`
+                }
+                key={item.id}
+                className="section-img-link"
+              >
                 <div
                   className="section-img"
                   style={{ backgroundImage: `url(${item.img})`, backgroundSize }}

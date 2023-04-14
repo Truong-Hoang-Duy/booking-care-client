@@ -11,6 +11,9 @@ import { SignUp } from './components/Layout/Auth';
 import VerifyBookingPage from './pages/VerifyBookingPage';
 import { SpecialtyManage } from './components/Layout/Admin/SpecialtyManage';
 import { Specialty } from './components/Layout/Specialty';
+import { ClinicManage } from './components/Layout/Admin/ClinicManage';
+import { Clinic } from './components/Layout/Clinic';
+import { DoctorPatientManage } from './components/Layout/Admin/DoctorPatientManage';
 
 const Navigation = () => {
   return (
@@ -30,10 +33,13 @@ const Navigation = () => {
           <Route path="user-manage" element={<UserManage />}></Route>
           <Route path="doctor-manage" element={<DoctorManage />}></Route>
           <Route path="manage-specialty" element={<SpecialtyManage />}></Route>
+          <Route path="manage-clinic" element={<ClinicManage />}></Route>
           <Route path="doctor/manage-schedule" element={<DoctorScheduleManage />}></Route>
+          <Route path="doctor/manage-patient" element={<DoctorPatientManage />}></Route>
         </Route>
         <Route path="detail-doctor/:id" element={<DetailDoctor />}></Route>
         <Route path="detail-specialty/:id" element={<Specialty />}></Route>
+        <Route path="detail-clinic/:id" element={<Clinic />}></Route>
         <Route path="verify-booking/:confirmTime/:doctorId" element={<VerifyBookingPage />}></Route>
       </Route>
 
